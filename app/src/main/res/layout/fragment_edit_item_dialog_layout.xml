@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/gray5">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@drawable/solid_white_bg_2"
+        android:orientation="horizontal"
+        tools:context=".ui.community.CommentOnDialogFragment">
+
+        <EditText
+            android:id="@+id/content_view"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxHeight="150dp"
+            android:singleLine="false"
+            android:background="@null"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:lineSpacingExtra="2dp"
+            android:hint="请输入内容"
+            android:textColorHint="@color/gray1"/>
+        <TextView
+            android:id="@+id/send_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:text="提交"
+            android:background="@drawable/main_color_stroke_bg" />
+    </LinearLayout>
+</LinearLayout>

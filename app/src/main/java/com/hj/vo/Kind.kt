@@ -3,7 +3,9 @@ package com.hj.vo
 import androidx.recyclerview.widget.DiffUtil
 
 data class Kind(
-    var name: String
+    var position: Int,
+    var name: String?,
+    var isReal: Boolean
 ) {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Kind>() {

@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="MyBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:backgroundDimEnabled">false</item>
+<!--                <item name="android:backgroundDimAmount">0.2</item>-->
+    </style>
+
+    <style name="MyBottomSheetDialog_1" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+</resources>
