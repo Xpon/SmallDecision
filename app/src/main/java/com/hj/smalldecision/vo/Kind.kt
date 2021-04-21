@@ -1,4 +1,4 @@
-package com.hj.vo
+package com.hj.smalldecision.vo
 
 import androidx.recyclerview.widget.DiffUtil
 import java.io.Serializable

@@ -1,9 +1,6 @@
 package com.hj.smalldecision.ui.home
 
-import android.content.Context
 import android.text.TextUtils
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.AdapterSelectBeehiveLayoutBinding
 import com.hj.smalldecision.utils.ViewUtils
-import com.hj.vo.Kind
+import com.hj.smalldecision.vo.Kind
 
 class KindAdapter: RecyclerView.Adapter<KindAdapter.KindViewHolder>() {
 

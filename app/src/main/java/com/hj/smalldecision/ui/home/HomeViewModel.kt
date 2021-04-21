@@ -2,7 +2,7 @@ package com.hj.smalldecision.ui.home
 
 import androidx.lifecycle.ViewModel
 import com.hj.smalldecision.repo.ChooseModuleRepo
-import com.hj.vo.ChooseModule
+import com.hj.smalldecision.vo.ChooseModule
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
@@ -14,4 +14,6 @@ class HomeViewModel @Inject constructor(
     suspend fun getChooseModule(id: Int) = chooseModuleRepo.getChooseModule(id)
 
     suspend fun addChooseModule(chooseModule: ChooseModule) = chooseModuleRepo.addChooseModule(chooseModule)
+
+    suspend fun getChooseModules() = chooseModuleRepo.getChooseModules()
 }

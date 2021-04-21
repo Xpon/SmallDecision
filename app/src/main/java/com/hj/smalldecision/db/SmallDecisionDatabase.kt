@@ -11,7 +11,7 @@ import com.hj.smalldecision.SmallDecisionApp
 import com.hj.smalldecision.dao.ChooseModuleDao
 import com.hj.smalldecision.utils.DataUtils
 import com.hj.smalldecision.utils.SmallDecisionTypeConverters
-import com.hj.vo.ChooseModule
+import com.hj.smalldecision.vo.ChooseModule
 
 @Database(
     entities = [

@@ -1,8 +1,6 @@
 package com.hj.smalldecision.ui.home
 
 import android.app.Dialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -10,12 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.hj.goodweight.extension.defaultSharedPreferences
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.FragmentHomeBinding
@@ -24,8 +20,8 @@ import com.hj.smalldecision.utils.BeehiveLayoutManager
 import com.hj.smalldecision.utils.DataUtils
 import com.hj.smalldecision.utils.ViewUtils
 import com.hj.smalldecision.weight.TipsDialog
-import com.hj.vo.ChooseModule
-import com.hj.vo.Kind
+import com.hj.smalldecision.vo.ChooseModule
+import com.hj.smalldecision.vo.Kind
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -95,11 +91,13 @@ class HomeFragment : BaseFragment() {
                             EditItemDialogFragment.OnCommitListener {
                             override fun commit(content: String) {
                                 kinds[position].name = content.trim()
-                                kindAdapter!!.submitList(kinds)
-//                                sharedPreferences!!.edit().putString(
-//                                    KINDS,
-//                                    Gson().toJson(kinds)
-//                                ).commit()
+                                lifecycleScope.launch(Dispatchers.IO){
+                                    chooseModule!!.content = Gson().toJson(kinds)
+                                    homeViewModel.addChooseModule(chooseModule!!)
+                                    withContext(Dispatchers.Main){
+                                        kindAdapter!!.submitList(kinds)
+                                    }
+                                }
                             }
                         })
                         editItemDialogFragment.show(childFragmentManager, "")
@@ -123,7 +121,26 @@ class HomeFragment : BaseFragment() {
                 showPlayButtonAction(buttonAction)
             }
             moduleButton.setOnClickListener{
-                var moduleDialogFragment = ModuleDialogFragment().show(childFragmentManager, "")
+                lifecycleScope.launch(Dispatchers.IO){
+                    var chooseModules= ArrayList<ChooseModule>()
+                    chooseModules.addAll(homeViewModel.getChooseModules())
+                    withContext(Dispatchers.Main){
+                        var moduleDialogFragment = ModuleDialogFragment()
+                        for(i in 1..20){
+                            chooseModules.add(ChooseModule(i,"火影忍者",""))
+                        }
+                        moduleDialogFragment.setData(chooseModules)
+                        moduleDialogFragment.setOnItemClickListener(object: ModuleDialogFragment.OnItemClickListener{
+                            override fun onClick(module: ChooseModule) {
+                                chooseModule = module
+                                kinds = DataUtils.getKinds(module.content)
+                                chooseModuleId = module.id
+                                defaultSharedPreferences.edit().putInt(CHOOSE_MODULE_ID,chooseModuleId).commit()
+                            }
+                        })
+                        moduleDialogFragment.show(childFragmentManager,"")
+                    }
+                }
             }
             lifecycleScope.launch(Dispatchers.IO){
                 chooseModule = homeViewModel.getChooseModule(chooseModuleId)

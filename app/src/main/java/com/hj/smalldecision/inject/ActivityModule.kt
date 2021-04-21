@@ -2,6 +2,7 @@ package com.hj.smalldecision.inject
 
 import com.hj.smalldecision.MainActivity
 import com.hj.smalldecision.ui.home.HomeFragment
+import com.hj.smalldecision.ui.home.ModuleEditActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,5 +14,8 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeHomeFragment(): HomeFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeModuleEditActivity(): ModuleEditActivity
 
 }

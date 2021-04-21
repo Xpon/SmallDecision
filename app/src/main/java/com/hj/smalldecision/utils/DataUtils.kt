@@ -2,8 +2,8 @@ package com.hj.smalldecision.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.hj.vo.ChooseModule
-import com.hj.vo.Kind
+import com.hj.smalldecision.vo.ChooseModule
+import com.hj.smalldecision.vo.Kind
 
 object DataUtils {
 
@@ -42,7 +42,7 @@ object DataUtils {
 
 
     fun getKinds(kindString: String): ArrayList<Kind>{
-        val type = object : TypeToken<List<Kind>>() {}.type
+        val type = object : TypeToken<ArrayList<Kind>>() {}.type
         return Gson().fromJson(kindString,type)
     }
 
