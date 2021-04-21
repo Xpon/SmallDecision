@@ -5,6 +5,7 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import com.hj.smalldecision.animation.TossAnimation
 import com.hj.smalldecision.databinding.ActivityMainBinding
 import com.hj.smalldecision.weight.TossImageView
@@ -19,6 +20,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.apply {
+            homeButton.setOnClickListener{
+                Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.home_fragment)
+            }
+            coinButton.setOnClickListener{
+                Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.coin_fragment)
+            }
+        }
     }
 }

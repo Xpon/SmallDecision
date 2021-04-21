@@ -1,40 +1,62 @@
 package com.hj.smalldecision.ui.home
 
+import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.hj.goodweight.extension.defaultSharedPreferences
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.FragmentHomeBinding
+import com.hj.smalldecision.ui.base.BaseFragment
 import com.hj.smalldecision.utils.BeehiveLayoutManager
-import com.hj.smalldecision.utils.BeehiveLayoutManager1
+import com.hj.smalldecision.utils.DataUtils
 import com.hj.smalldecision.utils.ViewUtils
+import com.hj.smalldecision.weight.TipsDialog
+import com.hj.vo.ChooseModule
 import com.hj.vo.Kind
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
     lateinit var binding: FragmentHomeBinding
     private var kindAdapter: KindAdapter? = null
     private var kinds = ArrayList<Kind>()
-    private var kinds_vali = ArrayList<Kind>()
+    private var chooseModule: ChooseModule? = null
     private var buttonAction = STOP
+    private var chooseModuleId = DEFAULT_CHOOSE_MODULE_ID
     companion object{
         const val PLAY = 1
         const val RESET = 2
         const val STOP = 3
+        const val DECISION_DATA = "decision_data"
+        const val CHOOSE_MODULE_ID = "choose_module_id_key"
+        const val DEFAULT_CHOOSE_MODULE_ID = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        chooseModuleId = defaultSharedPreferences.getInt(CHOOSE_MODULE_ID, DEFAULT_CHOOSE_MODULE_ID)
     }
 
     override fun onCreateView(
@@ -47,11 +69,13 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
         binding.apply {
             initRecyclerViewSize()
+            clearButton.setOnClickListener{
+                showClearDataDialog()
+            }
             kindAdapter = KindAdapter()
-            var beehiveLayoutManager = BeehiveLayoutManager(5, requireContext())
+            var beehiveLayoutManager = BeehiveLayoutManager(requireContext(),5)
             beehiveLayoutManager.setFristMarginSecondGroup(0)
             beehiveLayoutManager.setGroupPadding(0)
             recyclerView.layoutManager = beehiveLayoutManager
@@ -59,32 +83,60 @@ class HomeFragment : Fragment() {
             kindAdapter!!.setOnItemClickListener(object : KindAdapter.OnItemClickListener {
                 override fun onclick(position: Int) {
                     if (kinds[position].name != null && kinds[position].isReal) {
-                        if(buttonAction == PLAY){
-                            Toast.makeText(requireContext(),"正在选择中，请在停止后修改内容",Toast.LENGTH_SHORT).show()
+                        if (buttonAction == PLAY) {
+                            Toast.makeText(requireContext(), "正在选择中，请在停止后修改内容", Toast.LENGTH_SHORT)
+                                .show()
                             return
-                        }else if(buttonAction == RESET||buttonAction == STOP){
+                        } else if (buttonAction == RESET || buttonAction == STOP) {
                             showPlayButtonAction(RESET)
                         }
                         var editItemDialogFragment = EditItemDialogFragment(kinds[position].name!!)
-                        editItemDialogFragment.setOnCommitListener(object: EditItemDialogFragment.OnCommitListener{
+                        editItemDialogFragment.setOnCommitListener(object :
+                            EditItemDialogFragment.OnCommitListener {
                             override fun commit(content: String) {
                                 kinds[position].name = content.trim()
                                 kindAdapter!!.submitList(kinds)
+//                                sharedPreferences!!.edit().putString(
+//                                    KINDS,
+//                                    Gson().toJson(kinds)
+//                                ).commit()
                             }
                         })
                         editItemDialogFragment.show(childFragmentManager, "")
                     }
                 }
             })
-            kindAdapter!!.submitList(kinds)
             playButton.setOnClickListener {
+                var kinds_vali = ArrayList<Kind>()
+                for(i in 0 until kinds.size){
+                    if(!TextUtils.isEmpty(kinds[i].name)){
+                        kinds_vali.add(kinds[i])
+                    }
+                }
+                if(kinds_vali.size<3){
+                    Toast.makeText(requireContext(), "请至少添加三个选择项", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 if(buttonAction==STOP){
                     buttonAction = PLAY
                 }
                 showPlayButtonAction(buttonAction)
             }
+            moduleButton.setOnClickListener{
+                var moduleDialogFragment = ModuleDialogFragment().show(childFragmentManager, "")
+            }
+            lifecycleScope.launch(Dispatchers.IO){
+                chooseModule = homeViewModel.getChooseModule(chooseModuleId)
+                var contents = DataUtils.getKinds(chooseModule!!.content)
+                withContext(Dispatchers.Main){
+                    kinds.clear()
+                    kinds.addAll(contents)
+                    kindAdapter!!.submitList(kinds)
+                }
+            }
         }
     }
+
 
     private fun showPlayButtonAction(action: Int){
         if(action==PLAY){
@@ -113,43 +165,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun getRandomChoosePosition(): Int{
+        var kinds_vali = ArrayList<Kind>()
         for(i in 0 until kinds.size){
             if(!TextUtils.isEmpty(kinds[i].name)){
                 kinds_vali.add(kinds[i])
             }
         }
-        var randomNum = Random().nextInt(kinds_vali.size-1)
+        var randomNum = Random().nextInt(kinds_vali.size - 1)
         return kinds_vali[randomNum].position
-    }
-
-    private fun initData(){
-        kinds.add(Kind(0,"徽菜", true))
-        kinds.add(Kind(1,"麻辣小龙虾", true))
-        kinds.add(Kind(2,null, false))
-        kinds.add(Kind(3,"日式", true))
-        kinds.add(Kind(4,"牛排", true))
-        kinds.add(Kind(5,null, false))
-        kinds.add(Kind(6,null, false))
-        kinds.add(Kind(7,"韩式", true))
-        kinds.add(Kind(8,"兰州拉面", true))
-        kinds.add(Kind(9,null, false))
-        kinds.add(Kind(10,"印度菜", true))
-        kinds.add(Kind(11,"自己做饭", true))
-        kinds.add(Kind(12,null, false))
-        kinds.add(Kind(13,null, false))
-        kinds.add(Kind(14,"川菜", true))
-        kinds.add(Kind(15,"新加坡黑胡椒蟹", true))
-        kinds.add(Kind(16,null, false))
-        kinds.add(Kind(17,"沙县小吃", true))
-        kinds.add(Kind(18,"", true))
-        kinds.add(Kind(19,null, false))
-        kinds.add(Kind(20,"减肥", true))
-        kinds.add(Kind(21,"湘菜", true))
-        kinds.add(Kind(22,"米其林三星唐阁粤式餐厅", true))
-        kinds.add(Kind(23,null, false))
-        kinds.add(Kind(24,"重庆火锅", true))
-        kinds.add(Kind(25,"海鲜", true))
-        kinds.add(Kind(26,"素食", true))
     }
 
     private fun reset(){
@@ -175,7 +198,7 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.chooseView.text = kinds[showPosition].name
                     kindAdapter!!.setShowPosition(showPosition)
-                    if (loopCount >= 2&&showPosition==choosePosition) {
+                    if (loopCount >= 2 && showPosition == choosePosition) {
                         showPlayButtonAction(STOP)
                         return
                     }
@@ -186,7 +209,7 @@ class HomeFragment : Fragment() {
                     showPosition++
                     if (loopCount == 0 && showPosition == kinds.size / 2) {
                         time = 200
-                    } else if (loopCount == 0 && showPosition == kinds.size*4/5) {
+                    } else if (loopCount == 0 && showPosition == kinds.size * 4 / 5) {
                         time = 100
                     } else if (loopCount == 2) {
                         time = 400
@@ -197,6 +220,43 @@ class HomeFragment : Fragment() {
         }, time)
     }
 
+    private fun showClearDataDialog(){
+        var tipsDialog = TipsDialog.Builder(requireContext())
+            .setTitle("提示")
+            .setMessage("确定清除所有选择项吗？")
+            .setOnCancelListener(object : TipsDialog.OnCancelListener {
+                override fun onClick(dialog: Dialog) {
+                    dialog.dismiss()
+                }
+            })
+            .setOnPositiveListener(object: TipsDialog.OnPositiveListener {
+                override fun onClick(dialog: Dialog) {
+                    clearData()
+                    kindAdapter!!.submitList(kinds)
+                    lifecycleScope.launch(Dispatchers.IO){
+                        var content = DataUtils.makeKindsToString(kinds)
+                        chooseModule!!.content = content
+                        homeViewModel.addChooseModule(chooseModule!!)
+                        withContext(Dispatchers.Main){
+                            if (buttonAction == RESET || buttonAction == STOP) {
+                                showPlayButtonAction(RESET)
+                            }
+                            dialog.dismiss()
+                        }
+                    }
+                }
+            })
+            .create()
+        tipsDialog.setCancelable(false)
+        tipsDialog.show()
+    }
 
+    private fun clearData(){
+        for(kind in kinds){
+            if(kind.isReal){
+                kind.name = ""
+            }
+        }
+    }
 
 }

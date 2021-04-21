@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import java.util.*
 
-class BeehiveLayoutManager1: RecyclerView.LayoutManager {
+class BeehiveLayoutManager: RecyclerView.LayoutManager {
     var FIRSTGROUP_MARGIN_SECONDGROUP = 50 //第一小组与第二小组间距
     var GROUP_PADDING = 120 //组距
     private var mContext: Context? = null
