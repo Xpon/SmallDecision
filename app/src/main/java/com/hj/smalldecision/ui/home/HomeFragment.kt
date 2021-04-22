@@ -126,15 +126,17 @@ class HomeFragment : BaseFragment() {
                     chooseModules.addAll(homeViewModel.getChooseModules())
                     withContext(Dispatchers.Main){
                         var moduleDialogFragment = ModuleDialogFragment()
-                        for(i in 1..20){
-                            chooseModules.add(ChooseModule(i,"火影忍者",""))
-                        }
                         moduleDialogFragment.setData(chooseModules)
                         moduleDialogFragment.setOnItemClickListener(object: ModuleDialogFragment.OnItemClickListener{
                             override fun onClick(module: ChooseModule) {
+                                if (buttonAction == RESET || buttonAction == STOP) {
+                                    showPlayButtonAction(RESET)
+                                }
                                 chooseModule = module
+                                moduleTitleView.text = module.title
                                 kinds = DataUtils.getKinds(module.content)
                                 chooseModuleId = module.id
+                                kindAdapter!!.submitList(kinds)
                                 defaultSharedPreferences.edit().putInt(CHOOSE_MODULE_ID,chooseModuleId).commit()
                             }
                         })
@@ -146,6 +148,7 @@ class HomeFragment : BaseFragment() {
                 chooseModule = homeViewModel.getChooseModule(chooseModuleId)
                 var contents = DataUtils.getKinds(chooseModule!!.content)
                 withContext(Dispatchers.Main){
+                    moduleTitleView.text = chooseModule!!.title
                     kinds.clear()
                     kinds.addAll(contents)
                     kindAdapter!!.submitList(kinds)
@@ -162,9 +165,6 @@ class HomeFragment : BaseFragment() {
             play()
             binding.playButton.isClickable = false
         }else if(action==RESET){
-            binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
-            binding.playButton.text = "开始"
-            buttonAction = STOP
             reset()
         }else if(action== STOP){
             binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
@@ -193,6 +193,9 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun reset(){
+        binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
+        binding.playButton.text = "开始"
+        buttonAction = STOP
         binding.chooseView.text = ""
         kindAdapter!!.setShowPosition(-1)
     }

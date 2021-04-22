@@ -23,6 +23,9 @@ class ModuleAdapter: ListAdapter<ChooseModule,ModuleAdapter.ModuleViewHolder>(Ch
                 rootView.setOnClickListener{
                     onItemClickListener.onClick(chooseModule)
                 }
+                editButton.setOnClickListener{
+                    onItemClickListener.onEdit(chooseModule)
+                }
             }
         }
     }
@@ -37,5 +40,6 @@ class ModuleAdapter: ListAdapter<ChooseModule,ModuleAdapter.ModuleViewHolder>(Ch
 
     interface OnItemClickListener{
         fun onClick(module: ChooseModule)
+        fun onEdit(module: ChooseModule)
     }
 }

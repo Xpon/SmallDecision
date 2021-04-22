@@ -28,6 +28,10 @@ class ModuleDialogFragment() : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentModuleDialogBinding
     private var chooseModules: List<ChooseModule>? = null
     private var onItemClickListener: OnItemClickListener? = null
+    companion object{
+        const val CHOOSE_MODULE_KEY = "choose_module_key"
+        const val CHOOSE_MODULE = "choose_module"
+    }
 
     fun setData(chooseModules: List<ChooseModule>){
         this.chooseModules = chooseModules
@@ -61,6 +65,14 @@ class ModuleDialogFragment() : BottomSheetDialogFragment() {
             moduleAdapter.setOnItemClickListener(object: ModuleAdapter.OnItemClickListener{
                 override fun onClick(module: ChooseModule) {
                     onItemClickListener!!.onClick(module)
+                    dismiss()
+                }
+                override fun onEdit(module: ChooseModule) {
+                    var intent = Intent(requireContext(),ModuleEditActivity::class.java)
+                    var bundle = Bundle()
+                    bundle.putSerializable(CHOOSE_MODULE,module)
+                    intent.putExtra(CHOOSE_MODULE_KEY,bundle)
+                    startActivity(intent)
                     dismiss()
                 }
             })

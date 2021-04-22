@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "choose_module")
 data class ChooseModule(
@@ -13,7 +14,7 @@ data class ChooseModule(
     var title: String,
     @ColumnInfo(name = "content")
     var content: String
-){
+): Serializable{
     companion object {
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ChooseModule>() {

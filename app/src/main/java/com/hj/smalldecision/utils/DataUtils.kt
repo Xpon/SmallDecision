@@ -40,6 +40,37 @@ object DataUtils {
         return ChooseModule(1, "吃啥？", content)
     }
 
+    fun getDefaultCustomKinds(): List<Kind>{
+        var kinds = ArrayList<Kind>()
+        kinds.add(Kind(0, null, false))
+        kinds.add(Kind(1, null, false))
+        kinds.add(Kind(2, null, false))
+        kinds.add(Kind(3, null, false))
+        kinds.add(Kind(4, null, false))
+        kinds.add(Kind(5, null, false))
+        kinds.add(Kind(6, null, false))
+        kinds.add(Kind(7, null, false))
+        kinds.add(Kind(8, null, false))
+        kinds.add(Kind(9, null, false))
+        kinds.add(Kind(10, null, false))
+        kinds.add(Kind(11, null, false))
+        kinds.add(Kind(12, null, false))
+        kinds.add(Kind(13, null, false))
+        kinds.add(Kind(14, null, false))
+        kinds.add(Kind(15, null, false))
+        kinds.add(Kind(16, null, false))
+        kinds.add(Kind(17, null, false))
+        kinds.add(Kind(18, null, false))
+        kinds.add(Kind(19, null, false))
+        kinds.add(Kind(20, null, false))
+        kinds.add(Kind(21, null, false))
+        kinds.add(Kind(22, null, false))
+        kinds.add(Kind(23, null, false))
+        kinds.add(Kind(24, null, false))
+        kinds.add(Kind(25, null, false))
+        kinds.add(Kind(26, null, false))
+        return kinds
+    }
 
     fun getKinds(kindString: String): ArrayList<Kind>{
         val type = object : TypeToken<ArrayList<Kind>>() {}.type

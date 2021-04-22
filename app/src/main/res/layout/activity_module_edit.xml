@@ -9,35 +9,69 @@
     android:background="@color/white"
     tools:context=".ui.home.ModuleEditActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp">
+        <TextView
+            android:id="@+id/back_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:text="返回"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="模板创建"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/save_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:text="保存"/>
+    </FrameLayout>
+
     <LinearLayout
+        android:id="@+id/module_name_group"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
-        <EditText
+        <TextView
+            android:id="@+id/module_name_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:background="@null"
-            android:hint="请输入模板名称"
-            android:textColorHint="@color/gray1"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray3"/>
+            android:text="请输入模板名称"
+            android:textColor="@color/gray1"
+            android:textSize="18dp" />
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"></androidx.recyclerview.widget.RecyclerView>
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="2"></LinearLayout>
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:textSize="10dp"
+        android:textColor="@color/gray1"
+        android:text="点击灰色区域即可创建选择项，制定不同风格的模板"/>
 </LinearLayout>
