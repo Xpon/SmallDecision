@@ -1,10 +1,12 @@
 package com.hj.smalldecision.ui.coin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
@@ -12,12 +14,15 @@ import com.hj.smalldecision.R
 import com.hj.smalldecision.animation.TossAnimation
 import com.hj.smalldecision.databinding.FragmentCoinBinding
 import com.hj.smalldecision.weight.TossImageView
+import kotlinx.android.synthetic.main.fragment_coin.*
 import java.util.*
 
 class CoinFragment : Fragment() {
 
 
     lateinit var binding: FragmentCoinBinding
+    private var resultFontCount = 0
+    private var resultReverseCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +39,14 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            up.setOnClickListener{
+            upButton.setOnClickListener{
+                setButtonEnable(false)
+                var result = Random().nextInt(2)
+                if(result==0){
+                    resultFontCount++
+                }else{
+                    resultReverseCount++
+                }
                 tiv.cleareOtherAnimation()
                 val translateAnimation0 = TranslateAnimation(0f, 0f, 0f, -1000f)
                 translateAnimation0.duration = 1500
@@ -47,12 +59,19 @@ class CoinFragment : Fragment() {
                     .setXAxisDirection(TossAnimation.DIRECTION_CLOCKWISE)
                     .setYAxisDirection(TossAnimation.DIRECTION_NONE)
                     .setZAxisDirection(TossAnimation.DIRECTION_NONE)
-                    .setResult(if (Random().nextInt(2) === 0) TossImageView.RESULT_FRONT else TossImageView.RESULT_REVERSE)
+                    .setResult(if (result == 0) TossImageView.RESULT_FRONT else TossImageView.RESULT_REVERSE)
                 tiv.addOtherAnimation(translateAnimation0)
                 tiv.addOtherAnimation(translateAnimation1)
                 tiv.startToss()
             }
-            rhombus.setOnClickListener{
+            rhombusButton.setOnClickListener{
+                setButtonEnable(false)
+                var result = Random().nextInt(2)
+                if(result==0){
+                    resultFontCount++
+                }else{
+                    resultReverseCount++
+                }
                 tiv.cleareOtherAnimation()
                 val translateAnimation10 = TranslateAnimation(0f, 200f, 0f, -200f)
                 translateAnimation10.duration = 2000
@@ -71,14 +90,37 @@ class CoinFragment : Fragment() {
                     .setXAxisDirection(TossAnimation.DIRECTION_CLOCKWISE)
                     .setYAxisDirection(TossAnimation.DIRECTION_CLOCKWISE)
                     .setZAxisDirection(TossAnimation.DIRECTION_CLOCKWISE)
-                    .setResult(if (Random().nextInt(2) === 0) TossImageView.RESULT_FRONT else TossImageView.RESULT_REVERSE)
-
+                    .setResult(if (result==0) TossImageView.RESULT_FRONT else TossImageView.RESULT_REVERSE)
                 tiv.addOtherAnimation(translateAnimation10)
                 tiv.addOtherAnimation(translateAnimation11)
                 tiv.addOtherAnimation(translateAnimation12)
                 tiv.addOtherAnimation(translateAnimation13)
                 tiv.startToss()
             }
+            tiv.setTossAnimationListener(object: TossAnimation.TossAnimationListener{
+                override fun onAnimationStart(p0: Animation?) {
+                }
+                override fun onAnimationEnd(p0: Animation?) {
+                    setButtonEnable(true)
+                    fontCountView.text = resultFontCount.toString()
+                    reverseCountView.text = resultReverseCount.toString()
+                }
+                override fun onAnimationRepeat(p0: Animation?) {
+                }
+                override fun onDrawableChange(result: Int, animation: TossAnimation?) {
+                }
+            })
         }
     }
+
+    private fun setButtonEnable(isEnable: Boolean){
+        if(isEnable){
+            up_button.isClickable = true
+            rhombus_button.isClickable = true
+        }else{
+            up_button.isClickable = false
+            rhombus_button.isClickable = false
+        }
+    }
+
 }

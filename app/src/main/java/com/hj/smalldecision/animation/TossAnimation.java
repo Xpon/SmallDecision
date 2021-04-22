@@ -106,7 +106,6 @@ public class TossAnimation extends Animation {
         // 在View的中心点旋转
         matrix.preTranslate(-(mWidth >> 1), -(mHeight >> 1));
         matrix.postTranslate(mWidth >> 1, mHeight >> 1);
-
     }
 
     public interface TossAnimationListener extends AnimationListener {

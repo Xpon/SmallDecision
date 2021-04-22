@@ -8,11 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.hj.smalldecision.animation.TossAnimation
 import com.hj.smalldecision.databinding.ActivityMainBinding
+import com.hj.smalldecision.ui.base.BaseActivity
 import com.hj.smalldecision.weight.TossImageView
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
 

@@ -367,6 +367,7 @@ public class TossImageView extends ImageView {
 
         @Override
         public void onDrawableChange(int result, TossAnimation animation) {
+            Log.e("333333","result="+result);
             switch (result) {
                 case TossAnimation.RESULT_FRONT:
                     setImageDrawable(mFrontDrawable);
@@ -392,7 +393,6 @@ public class TossImageView extends ImageView {
             if (mTossAnimationListener != null) {
                 mTossAnimationListener.onAnimationEnd(animation);
             }
-            Log.e("qingtian", "end");
         }
 
         @Override
