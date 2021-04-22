@@ -78,6 +78,7 @@ class ModuleEditActivity : BaseActivity() {
                 }
             })
             if(!TextUtils.isEmpty(chooseModule!!.title)){
+                moduleNameView.setTextColor(resources.getColor(R.color.black))
                 moduleNameView.text = chooseModule!!.title
             }
             moduleNameGroup.setOnClickListener{
