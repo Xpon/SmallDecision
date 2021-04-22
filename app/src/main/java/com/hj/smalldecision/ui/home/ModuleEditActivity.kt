@@ -30,11 +30,13 @@ class ModuleEditActivity : BaseActivity() {
     lateinit var binding: ActivityModuleEditBinding
     private var chooseModule: ChooseModule? = null
     private var kinds = ArrayList<Kind>()
+    private var isDataUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityModuleEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        isDataUpdate = false
         kinds.clear()
         var bundle = intent.getBundleExtra(ModuleDialogFragment.CHOOSE_MODULE_KEY)
         if(bundle!=null){
@@ -66,6 +68,7 @@ class ModuleEditActivity : BaseActivity() {
                             if(!TextUtils.isEmpty(content)){
                                 kind.isReal = true
                                 kind.name = content
+                                isDataUpdate = true
                             }else{
                                 kind.isReal = false
                                 kind.name = ""
@@ -89,6 +92,7 @@ class ModuleEditActivity : BaseActivity() {
                             moduleNameView.setTextColor(resources.getColor(R.color.black))
                             moduleNameView.text = content
                             chooseModule!!.title = content
+                            isDataUpdate = true
                         }else{
                             moduleNameView.setTextColor(resources.getColor(R.color.gray1))
                             moduleNameView.text = "输入模板名称"
@@ -126,11 +130,23 @@ class ModuleEditActivity : BaseActivity() {
                 }
             }
             backView.setOnClickListener{
-                if(!TextUtils.isEmpty(chooseModule!!.title)||!TextUtils.isEmpty(chooseModule!!.content)){
-                    showTipsDialog()
-                }else{
-                    finish()
-                }
+                exit()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        exit()
+    }
+
+    private fun exit(){
+        if(!isDataUpdate){
+            finish()
+        }else {
+            if (!TextUtils.isEmpty(chooseModule!!.title) || !TextUtils.isEmpty(chooseModule!!.content)) {
+                showTipsDialog()
+            } else {
+                finish()
             }
         }
     }

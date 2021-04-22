@@ -17,4 +17,9 @@
         android:label="second"
         tools:layout="@layout/fragment_coin" />
 
+    <fragment
+        android:id="@+id/adventure_fragment"
+        android:name="com.hj.smalldecision.ui.adventure.AdventureFragment"
+        android:label="third"
+        tools:layout="@layout/fragment_adventure" />
 </navigation>

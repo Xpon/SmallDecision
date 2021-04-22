@@ -28,6 +28,9 @@ class MainActivity : BaseActivity() {
             coinButton.setOnClickListener{
                 Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.coin_fragment)
             }
+            adventureButton.setOnClickListener{
+                Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.adventure_fragment)
+            }
         }
     }
 }
