@@ -77,6 +77,9 @@ class ModuleEditActivity : BaseActivity() {
                     editItemDialogFragment.show(supportFragmentManager,"")
                 }
             })
+            if(!TextUtils.isEmpty(chooseModule!!.title)){
+                moduleNameView.text = chooseModule!!.title
+            }
             moduleNameGroup.setOnClickListener{
                 var editItemDialogFragment = EditItemDialogFragment(chooseModule!!.title)
                 editItemDialogFragment.setOnCommitListener(object: EditItemDialogFragment.OnCommitListener{
