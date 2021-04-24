@@ -1,6 +1,5 @@
-package com.hj.smalldecision.ui.adventure
+package com.hj.smalldecision.ui.dice
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.hj.smalldecision.databinding.ActivityAdventureBinding
 import com.hj.smalldecision.ui.base.BaseActivity

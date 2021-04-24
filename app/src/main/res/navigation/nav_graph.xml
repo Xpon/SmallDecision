@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/adventure_fragment"
-        android:name="com.hj.smalldecision.ui.adventure.AdventureFragment"
+        android:name="com.hj.smalldecision.ui.dice.DiceFragment"
         android:label="third"
-        tools:layout="@layout/fragment_adventure" />
+        tools:layout="@layout/fragment_dice" />
 </navigation>

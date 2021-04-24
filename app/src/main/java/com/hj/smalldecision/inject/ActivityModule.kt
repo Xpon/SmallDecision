@@ -1,7 +1,7 @@
 package com.hj.smalldecision.inject
 
 import com.hj.smalldecision.MainActivity
-import com.hj.smalldecision.ui.adventure.Activity_dice
+import com.hj.smalldecision.ui.dice.Activity_dice
 import com.hj.smalldecision.ui.home.HomeFragment
 import com.hj.smalldecision.ui.home.ModuleEditActivity
 import dagger.Module

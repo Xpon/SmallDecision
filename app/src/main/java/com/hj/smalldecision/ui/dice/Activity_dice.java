@@ -1,4 +1,4 @@
-package com.hj.smalldecision.ui.adventure;
+package com.hj.smalldecision.ui.dice;
 
 import android.content.Context;
 import android.hardware.Sensor;
