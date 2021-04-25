@@ -1,5 +1,6 @@
 package com.hj.smalldecision.ui.dice
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.FragmentDiceBinding
+import com.hj.smalldecision.ui.settings.SettingsActivity
 import kotlinx.android.synthetic.main.fragment_dice.*
 import java.util.Random
 
@@ -42,6 +44,10 @@ class DiceFragment : Fragment() {
         diceGroups = arrayOf(dice_1_group,dice_2_group,dice_3_group,dice_4_group)
         diceViews = arrayOf(dice_1_view,dice_2_view,dice_3_view,dice_4_view)
         binding.apply {
+            settingsButton.setOnClickListener{
+                var intent = Intent(requireContext(),SettingsActivity::class.java)
+                startActivity(intent)
+            }
             diceGroups!![viewNum].visibility = View.VISIBLE
             addDiceView.setOnClickListener{
                 viewNum++
@@ -97,7 +103,7 @@ class DiceFragment : Fragment() {
                 diceViews!![i].setImageResource(images[randomResult])
             }
             runTime += 1
-            if(runTime>=400){
+            if(runTime>=100){
                 return
             }
             handler.postDelayed(this,10)

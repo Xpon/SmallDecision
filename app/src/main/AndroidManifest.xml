@@ -10,8 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.dice.AdventureActivity"></activity>
-        <activity android:name=".ui.dice.Activity_dice"></activity>
+        <activity android:name=".ui.settings.PrivacyActivity"></activity>
+        <activity android:name=".ui.settings.UserTreatyActivity" />
+        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity android:name=".ui.dice.AdventureActivity" />
+        <activity android:name=".ui.dice.Activity_dice" />
         <activity
             android:name=".ui.home.ModuleEditActivity"
             android:windowSoftInputMode="adjustNothing" />

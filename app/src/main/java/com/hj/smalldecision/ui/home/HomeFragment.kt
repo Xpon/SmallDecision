@@ -1,6 +1,7 @@
 package com.hj.smalldecision.ui.home
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -15,6 +16,7 @@ import com.google.gson.Gson
 import com.hj.goodweight.extension.defaultSharedPreferences
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.FragmentHomeBinding
+import com.hj.smalldecision.ui.settings.SettingsActivity
 import com.hj.smalldecision.ui.base.BaseFragment
 import com.hj.smalldecision.utils.BeehiveLayoutManager
 import com.hj.smalldecision.utils.DataUtils
@@ -22,6 +24,7 @@ import com.hj.smalldecision.utils.ViewUtils
 import com.hj.smalldecision.weight.TipsDialog
 import com.hj.smalldecision.vo.ChooseModule
 import com.hj.smalldecision.vo.Kind
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,6 +44,12 @@ class HomeFragment : BaseFragment() {
     private var chooseModule: ChooseModule? = null
     private var buttonAction = STOP
     private var chooseModuleId = DEFAULT_CHOOSE_MODULE_ID
+    private var handler = Handler()
+    private var choosePosition = 0
+    private var showPosition = 0
+    private var loopCount = 0
+    private var time = 300L
+
     companion object{
         const val PLAY = 1
         const val RESET = 2
@@ -69,6 +78,12 @@ class HomeFragment : BaseFragment() {
             initRecyclerViewSize()
             clearButton.setOnClickListener{
                 showClearDataDialog()
+                showPlayButtonAction(RESET)
+            }
+            settingsButton.setOnClickListener{
+                var intent = Intent(requireContext(),
+                    SettingsActivity::class.java)
+                startActivity(intent)
             }
             kindAdapter = KindAdapter()
             var beehiveLayoutManager = BeehiveLayoutManager(requireContext(),5)
@@ -129,9 +144,7 @@ class HomeFragment : BaseFragment() {
                         moduleDialogFragment.setData(chooseModules)
                         moduleDialogFragment.setOnItemClickListener(object: ModuleDialogFragment.OnItemClickListener{
                             override fun onClick(module: ChooseModule) {
-                                if (buttonAction == RESET || buttonAction == STOP) {
-                                    showPlayButtonAction(RESET)
-                                }
+                                showPlayButtonAction(RESET)
                                 chooseModule = module
                                 moduleTitleView.text = module.title
                                 kinds = DataUtils.getKinds(module.content)
@@ -193,51 +206,57 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun reset(){
+        choosePosition = 0
+        showPosition = 0
+        time = 300L
+        loopCount = 0
         binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
         binding.playButton.text = "开始"
         buttonAction = STOP
-        binding.chooseView.text = ""
         kindAdapter!!.setShowPosition(-1)
+        handler.removeCallbacks(runnable)
+        module_title_view.text = chooseModule!!.title
     }
 
     private fun play() {
-        var showPosition = 0
-        var loopCount = 0
-        var time = 300L
-        var handler = Handler()
-        var choosePosition = getRandomChoosePosition()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (TextUtils.isEmpty(kinds[showPosition].name)) {
-                    if (showPosition >= kinds.size - 1) {
-                        loopCount++
-                        showPosition = -1
-                    }
-                    showPosition++
-                    handler.postDelayed(this, 0)
-                } else {
-                    binding.chooseView.text = kinds[showPosition].name
-                    kindAdapter!!.setShowPosition(showPosition)
-                    if (loopCount >= 2 && showPosition == choosePosition) {
-                        showPlayButtonAction(STOP)
-                        return
-                    }
-                    if (showPosition >= kinds.size - 1) {
-                        loopCount++
-                        showPosition = -1
-                    }
-                    showPosition++
-                    if (loopCount == 0 && showPosition == kinds.size / 2) {
-                        time = 200
-                    } else if (loopCount == 0 && showPosition == kinds.size * 4 / 5) {
-                        time = 100
-                    } else if (loopCount == 2) {
-                        time = 400
-                    }
-                    handler.postDelayed(this, time)
+        choosePosition = getRandomChoosePosition()
+        showPosition = 0
+        time = 300L
+        loopCount = 0
+        handler.postDelayed(runnable, time)
+    }
+
+    private var runnable = object : Runnable {
+        override fun run() {
+            if (TextUtils.isEmpty(kinds[showPosition].name)) {
+                if (showPosition >= kinds.size - 1) {
+                    loopCount++
+                    showPosition = -1
                 }
+                showPosition++
+                handler.postDelayed(this, 0)
+            } else {
+                binding.moduleTitleView.text = kinds[showPosition].name
+                kindAdapter!!.setShowPosition(showPosition)
+                if (loopCount >= 2 && showPosition == choosePosition) {
+                    showPlayButtonAction(STOP)
+                    return
+                }
+                if (showPosition >= kinds.size - 1) {
+                    loopCount++
+                    showPosition = -1
+                }
+                showPosition++
+                if (loopCount == 0 && showPosition == kinds.size / 2) {
+                    time = 200
+                } else if (loopCount == 0 && showPosition == kinds.size * 4 / 5) {
+                    time = 100
+                } else if (loopCount == 2) {
+                    time = 400
+                }
+                handler.postDelayed(this, time)
             }
-        }, time)
+        }
     }
 
     private fun showClearDataDialog(){
@@ -251,6 +270,7 @@ class HomeFragment : BaseFragment() {
             })
             .setOnPositiveListener(object: TipsDialog.OnPositiveListener {
                 override fun onClick(dialog: Dialog) {
+                    showPlayButtonAction(RESET)
                     clearData()
                     kindAdapter!!.submitList(kinds)
                     lifecycleScope.launch(Dispatchers.IO){
@@ -258,9 +278,7 @@ class HomeFragment : BaseFragment() {
                         chooseModule!!.content = content
                         homeViewModel.addChooseModule(chooseModule!!)
                         withContext(Dispatchers.Main){
-                            if (buttonAction == RESET || buttonAction == STOP) {
-                                showPlayButtonAction(RESET)
-                            }
+                            showPlayButtonAction(RESET)
                             dialog.dismiss()
                         }
                     }
@@ -277,6 +295,11 @@ class HomeFragment : BaseFragment() {
                 kind.name = ""
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        handler.removeCallbacks(runnable)
     }
 
 }

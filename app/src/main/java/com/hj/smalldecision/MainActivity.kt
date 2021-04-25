@@ -43,7 +43,7 @@ class MainActivity : BaseActivity() {
                 currentClick = COIN
                 Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.coin_fragment)
             }
-            adventureButton.setOnClickListener{
+            diceButton.setOnClickListener{
                 if(currentClick == DICE){
                     return@setOnClickListener
                 }
