@@ -28,15 +28,13 @@
             android:textSize="18dp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
-        <TextView
+        <ImageView
             android:id="@+id/save_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
             android:layout_marginRight="10dp"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:text="保存"/>
+            android:background="@mipmap/save_icon"/>
     </FrameLayout>
 
     <LinearLayout
@@ -45,8 +43,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center">
         <TextView
             android:id="@+id/module_name_view"
             android:layout_width="wrap_content"
@@ -56,6 +53,12 @@
             android:text="请输入模板名称"
             android:textColor="@color/gray1"
             android:textSize="18dp" />
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@mipmap/edit_icon"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

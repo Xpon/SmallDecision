@@ -1,0 +1,74 @@
+apply plugin: 'AndResGuard'
+
+andResGuard {
+    mappingFile = null
+    use7zip = true
+    useSign = true
+    keepRoot = false
+    compressFilePattern = [
+            "*.png",
+            "*.jpg",
+            "*.jpeg",
+            "*.gif",
+            "resources.arsc"
+    ]
+    whiteList = [
+            // your icon
+            "R.drawable.icon",
+            // for fabric
+            "R.string.com.crashlytics.*",
+            // for umeng update
+            "R.string.tb_*",
+            "R.layout.tb_*",
+            "R.drawable.tb_*",
+            "R.drawable.u1*",
+            "R.drawable.u2*",
+            "R.color.tb_*",
+            // for google-services.json
+            "R.string.google_app_id",
+            "R.string.gcm_defaultSenderId",
+            "R.string.default_web_client_id",
+            "R.string.ga_trackingId",
+            "R.string.firebase_database_url",
+            "R.string.google_api_key",
+            "R.string.google_crash_reporting_api_key",
+
+            //友盟
+            "R.string.umeng*",
+            "R.string.UM*",
+            "R.layout.umeng*",
+            "R.drawable.umeng*",
+            "R.id.umeng*",
+            "R.anim.umeng*",
+            "R.color.umeng*",
+            "R.style.*UM*",
+            "R.style.umeng*",
+             //头条
+            "R.string.tt*",
+            "R.string.appdownload*",
+            "R.drawable.tt*",
+            "R.drawable.appdownload*",
+            "R.color.tt*",
+            "R.id.tt*",
+            "R.id.appdownload*",
+            "R.color.appdownload*",
+            "R.style.Theme*",
+            "R.style.tt*",
+            "R.style.appdownload*",
+            "R.anim.tt*",
+            "R.layout.appdownload*",
+            "R.layout.tt*",
+            "R.inetger.tt*",
+            "R.inetger.appdownload*",
+            "R.dimen.tt*",
+            "R.integer.tt*",
+
+            //腾讯
+            "R.drawable.gdt*",
+    ]
+
+    sevenzip {
+        artifact = 'com.tencent.mm:SevenZip:1.2.10'
+        //path = "/usr/local/bin/7za"
+    }
+}

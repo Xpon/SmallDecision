@@ -10,14 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp">
+
         <ImageView
             android:id="@+id/settings_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="right|center"
             android:layout_marginRight="10dp"
-            android:background="@mipmap/setting_icon"/>
+            android:background="@mipmap/setting_icon" />
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,71 +33,48 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <FrameLayout
-                android:id="@+id/dice_1_group"
-                android:layout_width="0dp"
+
+            <ImageButton
+                android:id="@+id/dice_1_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:visibility="gone">
+                android:layout_gravity="center"
+                android:background="@mipmap/box_1"
+                android:visibility="gone" />
 
-                <ImageButton
-                    android:id="@+id/dice_1_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/box1" />
-            </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/dice_2_group"
-                android:layout_width="0dp"
+            <ImageButton
+                android:id="@+id/dice_2_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone">
-
-                <ImageButton
-                    android:id="@+id/dice_2_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/box1" />
-            </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:background="@mipmap/box_1"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
 
-            <FrameLayout
-                android:id="@+id/dice_3_group"
-                android:layout_width="0dp"
+            <ImageButton
+                android:id="@+id/dice_3_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone">
+                android:layout_gravity="center"
+                android:background="@mipmap/box_1"
+                android:visibility="gone" />
 
-                <ImageButton
-                    android:id="@+id/dice_3_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/box1" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/dice_4_group"
-                android:layout_width="0dp"
+            <ImageButton
+                android:id="@+id/dice_4_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone">
-
-                <ImageButton
-                    android:id="@+id/dice_4_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/box1" />
-            </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:background="@mipmap/box_1"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
@@ -104,32 +83,41 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:gravity="center">
+
         <TextView
             android:id="@+id/remove_dice_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
             android:layout_gravity="center"
             android:text="移除"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:background="@drawable/click_solid_bg_3"/>
+
         <TextView
             android:id="@+id/start_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:text="开始"/>
+            android:text="开始"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:background="@drawable/click_solid_bg_1"/>
+
         <TextView
             android:id="@+id/add_dice_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
             android:layout_gravity="center"
             android:text="添加"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:background="@drawable/click_solid_bg_2"/>
     </LinearLayout>
 
 </LinearLayout>

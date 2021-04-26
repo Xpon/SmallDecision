@@ -14,7 +14,6 @@
         <activity android:name=".ui.settings.UserTreatyActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.dice.AdventureActivity" />
-        <activity android:name=".ui.dice.Activity_dice" />
         <activity
             android:name=".ui.home.ModuleEditActivity"
             android:windowSoftInputMode="adjustNothing" />

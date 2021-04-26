@@ -174,13 +174,13 @@ class HomeFragment : BaseFragment() {
     private fun showPlayButtonAction(action: Int){
         if(action==PLAY){
             binding.playButton.text = "开始"
-            binding.playButton.setBackgroundResource(R.drawable.gray_stroke_bg)
+            // binding.playButton.setBackgroundResource(R.drawable.gray_stroke_bg)
             play()
             binding.playButton.isClickable = false
         }else if(action==RESET){
             reset()
         }else if(action== STOP){
-            binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
+            // binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
             binding.playButton.text = "重置"
             buttonAction = RESET
             binding.playButton.isClickable = true
@@ -210,7 +210,7 @@ class HomeFragment : BaseFragment() {
         showPosition = 0
         time = 300L
         loopCount = 0
-        binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
+        // binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
         binding.playButton.text = "开始"
         buttonAction = STOP
         kindAdapter!!.setShowPosition(-1)

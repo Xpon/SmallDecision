@@ -44,6 +44,8 @@
             android:layout_gravity="center"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:textSize="16dp"
             android:text="编辑"
             android:textColor="@color/gray4" />

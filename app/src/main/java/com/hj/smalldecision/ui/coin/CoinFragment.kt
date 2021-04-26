@@ -15,6 +15,7 @@ import com.hj.smalldecision.R
 import com.hj.smalldecision.animation.TossAnimation
 import com.hj.smalldecision.databinding.FragmentCoinBinding
 import com.hj.smalldecision.ui.settings.SettingsActivity
+import com.hj.smalldecision.utils.ViewUtils
 import com.hj.smalldecision.weight.TossImageView
 import kotlinx.android.synthetic.main.fragment_coin.*
 import java.util.*
@@ -41,6 +42,8 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            var mHeight = (ViewUtils.getMaxHeight(requireContext())*1/2).toFloat()
+            var mWidth = (ViewUtils.getMaxWidth(requireContext())/4).toFloat()
             settingsButton.setOnClickListener{
                 var intent = Intent(requireContext(), SettingsActivity::class.java)
                 startActivity(intent)
@@ -60,14 +63,14 @@ class CoinFragment : Fragment() {
                     resultReverseCount++
                 }
                 tiv.cleareOtherAnimation()
-                val translateAnimation0 = TranslateAnimation(0f, 0f, 0f, -800f)
+                val translateAnimation0 = TranslateAnimation(0f, 0f, 0f, -mHeight)
                 translateAnimation0.duration = 1500
-                val translateAnimation1 = TranslateAnimation(0f, 0f, 0f, 800f)
+                val translateAnimation1 = TranslateAnimation(0f, 0f, 0f, mHeight)
                 translateAnimation1.duration = 1500
                 translateAnimation1.startOffset = 1500
                 tiv.setInterpolator(DecelerateInterpolator())
                     .setDuration(3000)
-                    .setCircleCount(30)
+                    .setCircleCount(40)
                     .setXAxisDirection(TossAnimation.DIRECTION_CLOCKWISE)
                     .setYAxisDirection(TossAnimation.DIRECTION_NONE)
                     .setZAxisDirection(TossAnimation.DIRECTION_NONE)
@@ -85,15 +88,15 @@ class CoinFragment : Fragment() {
                     resultReverseCount++
                 }
                 tiv.cleareOtherAnimation()
-                val translateAnimation10 = TranslateAnimation(0f, 200f, 0f, -200f)
+                val translateAnimation10 = TranslateAnimation(0f, mWidth, 0f, -mWidth)
                 translateAnimation10.duration = 1000
-                val translateAnimation11 = TranslateAnimation(0f, -200f, 0f, -200f)
+                val translateAnimation11 = TranslateAnimation(0f, -mWidth, 0f, -mWidth)
                 translateAnimation11.duration = 1000
                 translateAnimation11.startOffset = 1000
-                val translateAnimation12 = TranslateAnimation(0f, -200f, 0f, 200f)
+                val translateAnimation12 = TranslateAnimation(0f, -mWidth, 0f, mWidth)
                 translateAnimation12.duration = 1000
                 translateAnimation12.startOffset = 2000
-                val translateAnimation13 = TranslateAnimation(0f, 200f, 0f, 200f)
+                val translateAnimation13 = TranslateAnimation(0f, mWidth, 0f, mWidth)
                 translateAnimation13.duration = 1000
                 translateAnimation13.startOffset = 3000
                 tiv.setInterpolator(LinearInterpolator())
