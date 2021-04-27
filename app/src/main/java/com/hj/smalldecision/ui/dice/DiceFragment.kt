@@ -24,6 +24,8 @@ class DiceFragment : Fragment() {
     private var diceViews: Array<ImageView>? = null
     private var viewNum = 5
     private var runTime = 0
+    private var diceCounts = intArrayOf(0,0,0,0,0,0)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +68,14 @@ class DiceFragment : Fragment() {
             startButton.setOnClickListener{
                 playDice()
             }
+            resetButton.setOnClickListener{
+                resetDice()
+            }
         }
     }
 
     private fun addDiceView(count: Int){
+        resetDice()
         for(i in diceViews!!.indices){
             if(i<=count){
                 diceViews!![i].visibility = View.VISIBLE
@@ -80,6 +86,7 @@ class DiceFragment : Fragment() {
     }
 
     private fun removeDiceView(count: Int){
+        resetDice()
         for(i in diceViews!!.indices){
             if(i<=count){
                 diceViews!![i].visibility = View.VISIBLE
@@ -90,18 +97,33 @@ class DiceFragment : Fragment() {
     }
 
     private fun playDice(){
+        dice_count_view.text = ""
         runTime = 0
+        diceCounts = intArrayOf(0,0,0,0,0,0)
         handler.postDelayed(runnable,0)
+    }
+
+    private fun resetDice(){
+        dice_count_view.text = ""
+        for(imageView in diceViews!!){
+            imageView.setBackgroundResource(R.mipmap.box_1)
+        }
     }
 
     private var runnable = object: Runnable {
         override fun run() {
             for(i in 0..viewNum){
                 var randomResult = Random().nextInt(6)
+                diceCounts[i] = randomResult+1
                 diceViews!![i].setBackgroundResource(images[randomResult])
             }
             runTime += 1
             if(runTime>=100){
+                var diceCount = 0
+                for(i in diceCounts){
+                    diceCount+=i
+                }
+                dice_count_view.text  = diceCount.toString()+"点"
                 return
             }
             handler.postDelayed(this,10)

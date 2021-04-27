@@ -2,6 +2,11 @@ package com.hj.smalldecision.ui.home
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -12,6 +17,7 @@ import android.view.Window
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -62,7 +68,11 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return CustomBottomSheetDialog(requireActivity(),R.style.MyBottomSheetDialog_1)
+        var bottomSheetDialog = CustomBottomSheetDialog(requireActivity(), R.style.MyBottomSheetDialog_1)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            setWhiteNavigationBar(bottomSheetDialog)
+        }
+        return bottomSheetDialog
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -131,6 +141,26 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
         bottomSheetBehavior.peekHeight = (height*0.8).toInt()
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun setWhiteNavigationBar(dialog: Dialog) {
+        val window = dialog.window
+        if (window != null) {
+            val metrics = DisplayMetrics()
+            window.windowManager.defaultDisplay.getMetrics(metrics)
+            val dimDrawable = GradientDrawable()
+            val navigationBarDrawable = GradientDrawable()
+            navigationBarDrawable.shape = GradientDrawable.RECTANGLE
+            navigationBarDrawable.setColor(Color.WHITE)
+            val layers =
+                arrayOf<Drawable>(
+                    dimDrawable, navigationBarDrawable
+                )
+            val windowBackground = LayerDrawable(layers)
+            windowBackground.setLayerInsetTop(1, metrics.heightPixels)
+            window.setBackgroundDrawable(windowBackground)
+        }
     }
 
     interface OnItemClickListener{
