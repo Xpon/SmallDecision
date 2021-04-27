@@ -22,7 +22,7 @@ class DiceFragment : Fragment() {
     private var handler = Handler()
     private var images = intArrayOf(R.mipmap.box_1, R.mipmap.box_2, R.mipmap.box_3, R.mipmap.box_4, R.mipmap.box_5, R.mipmap.box_6)
     private var diceViews: Array<ImageView>? = null
-    private var viewNum = 0
+    private var viewNum = 5
     private var runTime = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class DiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewNum = 0
+        viewNum = 5
         diceViews = arrayOf(dice_1_view,dice_2_view,dice_3_view,dice_4_view,dice_5_view,dice_6_view)
         binding.apply {
             settingsButton.setOnClickListener{

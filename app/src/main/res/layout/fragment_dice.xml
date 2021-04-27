@@ -39,8 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@mipmap/box_1"
-                android:visibility="gone" />
+                android:background="@mipmap/box_1"/>
 
 
             <ImageButton
@@ -49,8 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
-                android:background="@mipmap/box_1"
-                android:visibility="gone" />
+                android:background="@mipmap/box_1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,8 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@mipmap/box_1"
-                android:visibility="gone" />
+                android:background="@mipmap/box_1"/>
 
             <ImageButton
                 android:id="@+id/dice_4_view"
@@ -73,8 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
-                android:background="@mipmap/box_1"
-                android:visibility="gone" />
+                android:background="@mipmap/box_1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,8 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@mipmap/box_1"
-                android:visibility="gone" />
+                android:background="@mipmap/box_1"/>
 
             <ImageButton
                 android:id="@+id/dice_6_view"
@@ -96,8 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
-                android:background="@mipmap/box_1"
-                android:visibility="gone" />
+                android:background="@mipmap/box_1"/>
         </LinearLayout>
     </LinearLayout>
 
