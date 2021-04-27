@@ -90,7 +90,6 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
                     bundle.putSerializable(CHOOSE_MODULE,module)
                     intent.putExtra(CHOOSE_MODULE_KEY,bundle)
                     startActivityForResult(intent,IntentExtras.MODULE_REQUEST)
-                    dismiss()
                 }
             })
             if(chooseModules!=null){
@@ -105,7 +104,6 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.e("333333","onActivityResult")
         if(requestCode==IntentExtras.MODULE_REQUEST&&resultCode==IntentExtras.MODULE_RESULT){
             lifecycleScope.launch(Dispatchers.IO){
                 var chooseModules = homeViewModel.getChooseModules()

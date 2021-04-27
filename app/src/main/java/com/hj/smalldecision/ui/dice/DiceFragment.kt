@@ -40,7 +40,7 @@ class DiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewNum = 0
-        diceViews = arrayOf(dice_1_view,dice_2_view,dice_3_view,dice_4_view)
+        diceViews = arrayOf(dice_1_view,dice_2_view,dice_3_view,dice_4_view,dice_5_view,dice_6_view)
         binding.apply {
             settingsButton.setOnClickListener{
                 var intent = Intent(requireContext(),SettingsActivity::class.java)

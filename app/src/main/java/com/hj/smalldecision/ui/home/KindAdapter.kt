@@ -93,9 +93,10 @@ class KindAdapter: RecyclerView.Adapter<KindAdapter.KindViewHolder>() {
         }else{
             holder.binding.chooseView.visibility = View.GONE
         }
-        holder.binding.bgView.setOnClickListener{
+        holder.binding.bgView.setOnLongClickListener{
             if(onItemClickListener!=null)
                 onItemClickListener!!.onclick(position)
+            true
         }
     }
 

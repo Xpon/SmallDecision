@@ -35,6 +35,34 @@ object DataUtils {
         return ChooseModule(1, "吃啥？", content)
     }
 
+    fun getDefaultChooseModule_1(): ChooseModule{
+        var kinds = ArrayList<Kind>()
+        kinds.add(Kind(0, "做过最丢脸的事", true))
+        kinds.add(Kind(1, "初吻年龄", true))
+        kinds.add(Kind(2, "初恋对象是谁", true))
+        kinds.add(Kind(3, "谈过几次恋爱", true))
+        kinds.add(Kind(4, null, false))
+        kinds.add(Kind(5, null, false))
+        kinds.add(Kind(6, null, false))
+        kinds.add(Kind(7, null, false))
+        kinds.add(Kind(8, "目前最大的愿望", true))
+        kinds.add(Kind(9, null, false))
+        kinds.add(Kind(10, "你最害怕什么", true))
+        kinds.add(Kind(11, "你最郁闷的外号是", true))
+        kinds.add(Kind(12, null, false))
+        kinds.add(Kind(13, null, false))
+        kinds.add(Kind(14, "你最爱的人是", true))
+        kinds.add(Kind(15, "我在你眼里是什么样", true))
+        kinds.add(Kind(16, null, false))
+        kinds.add(Kind(17, "最想感谢的人是谁", true))
+        kinds.add(Kind(18, "", true))
+        kinds.add(Kind(19, null, false))
+        kinds.add(Kind(20, null, false))
+        kinds.add(Kind(21, "做过最疯狂的事", true))
+        var content = Gson().toJson(kinds)
+        return ChooseModule(2, "大冒险", content)
+    }
+
     fun getDefaultCustomKinds(): List<Kind>{
         var kinds = ArrayList<Kind>()
         kinds.add(Kind(0, null, false))

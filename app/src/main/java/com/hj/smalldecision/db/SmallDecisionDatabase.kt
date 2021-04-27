@@ -36,6 +36,13 @@ abstract class SmallDecisionDatabase : RoomDatabase() {
                 contentValues.put("title", chooseModule.title)
                 contentValues.put("content", chooseModule.content)
                 db.insert("choose_module", CONFLICT_ROLLBACK, contentValues)
+
+                var chooseModule_1 = DataUtils.getDefaultChooseModule_1()
+                val contentValues_1 = ContentValues()
+                contentValues_1.put("id", chooseModule_1.id)
+                contentValues_1.put("title", chooseModule_1.title)
+                contentValues_1.put("content", chooseModule_1.content)
+                db.insert("choose_module", CONFLICT_ROLLBACK, contentValues_1)
             }
         }
         fun get(): SmallDecisionDatabase {

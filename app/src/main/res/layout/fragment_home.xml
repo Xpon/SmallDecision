@@ -34,12 +34,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"></androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="12dp"
+            android:textColor="@color/gray1"
+            android:text="长按六边形区域可重新编辑选择项"/>
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +62,7 @@
             android:layout_height="35dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="更换"
+            android:text="切换"
             android:textColor="@color/white"
             android:textSize="12dp"
             android:background="@drawable/click_solid_bg_3"/>

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,7 +79,6 @@ class HomeFragment : BaseFragment() {
             initRecyclerViewSize()
             clearButton.setOnClickListener{
                 showClearDataDialog()
-                showPlayButtonAction(RESET)
             }
             settingsButton.setOnClickListener{
                 var intent = Intent(requireContext(),
@@ -179,6 +179,7 @@ class HomeFragment : BaseFragment() {
             binding.playButton.isClickable = false
         }else if(action==RESET){
             reset()
+            binding.playButton.isClickable = true
         }else if(action== STOP){
             // binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
             binding.playButton.text = "重置"
@@ -206,6 +207,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun reset(){
+        handler.removeCallbacks(runnable)
         choosePosition = 0
         showPosition = 0
         time = 200L
@@ -214,7 +216,6 @@ class HomeFragment : BaseFragment() {
         binding.playButton.text = "开始"
         buttonAction = STOP
         kindAdapter!!.setShowPosition(-1)
-        handler.removeCallbacks(runnable)
         module_title_view.text = chooseModule!!.title
     }
 
@@ -223,11 +224,13 @@ class HomeFragment : BaseFragment() {
         showPosition = 0
         time = 200L
         loopCount = 0
+        Log.e("333333","choosePosition="+choosePosition+"...showPosition="+showPosition)
         handler.postDelayed(runnable, time)
     }
 
     private var runnable = object : Runnable {
         override fun run() {
+            Log.e("333333","------")
             if (TextUtils.isEmpty(kinds[showPosition].name)) {
                 if (showPosition >= kinds.size - 1) {
                     loopCount++
