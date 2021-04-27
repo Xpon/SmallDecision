@@ -72,28 +72,23 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt Libs.AndroidX.Room.compiler
-    implementation Libs.Google.material
+    implementation 'com.google.android.material:material:1.1.0'
     implementation Libs.timber
     implementation Libs.threeTenAbp
-    implementation Libs.Facebook.Stetho.stetho
+//    implementation Libs.Facebook.Stetho.stetho
     implementation Libs.Kotlin.stdlib
     implementation Libs.Kotlin.reflect
     implementation Libs.Coroutines.core
     implementation Libs.Coroutines.android
-    implementation Libs.OkHttp.okhttp
-    implementation Libs.OkHttp.loggingInterceptor
-    implementation Libs.Retrofit.retrofit
-    implementation Libs.Retrofit.retrofitCoroutineAdapter
-    implementation Libs.Retrofit.gsonConverter
     implementation Libs.Dagger.dagger
     implementation Libs.Dagger.android
     implementation Libs.Dagger.androidSupport
     kapt Libs.Dagger.compiler
     kapt Libs.Dagger.androidProcessor
     ktlint Libs.ktlint
-    implementation Libs.fillableloaders
-    implementation Libs.elasticviews
-    implementation Libs.appintro
+//    implementation Libs.fillableloaders
+//    implementation Libs.elasticviews
+//    implementation Libs.appintro
     implementation 'com.google.code.gson:gson:2.8.6'
 }
 

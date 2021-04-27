@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment() {
     private var choosePosition = 0
     private var showPosition = 0
     private var loopCount = 0
-    private var time = 300L
+    private var time = 200L
 
     companion object{
         const val PLAY = 1
@@ -190,7 +190,7 @@ class HomeFragment : BaseFragment() {
     private fun initRecyclerViewSize(){
         var layoutParams = binding.recyclerView.layoutParams
         layoutParams.width = ViewUtils.getMaxWidth(requireContext())
-        layoutParams.height = ViewUtils.getMaxWidth(requireContext())/5*6
+        layoutParams.height = ViewUtils.getMaxWidth(requireContext())
         binding.recyclerView.layoutParams = layoutParams
     }
 
@@ -208,7 +208,7 @@ class HomeFragment : BaseFragment() {
     private fun reset(){
         choosePosition = 0
         showPosition = 0
-        time = 300L
+        time = 200L
         loopCount = 0
         // binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
         binding.playButton.text = "开始"
@@ -221,7 +221,7 @@ class HomeFragment : BaseFragment() {
     private fun play() {
         choosePosition = getRandomChoosePosition()
         showPosition = 0
-        time = 300L
+        time = 200L
         loopCount = 0
         handler.postDelayed(runnable, time)
     }
@@ -248,11 +248,11 @@ class HomeFragment : BaseFragment() {
                 }
                 showPosition++
                 if (loopCount == 0 && showPosition == kinds.size / 2) {
-                    time = 200
+                    time = 150
                 } else if (loopCount == 0 && showPosition == kinds.size * 4 / 5) {
-                    time = 100
+                    time = 80
                 } else if (loopCount == 2) {
-                    time = 400
+                    time = 300
                 }
                 handler.postDelayed(this, time)
             }
@@ -262,7 +262,7 @@ class HomeFragment : BaseFragment() {
     private fun showClearDataDialog(){
         var tipsDialog = TipsDialog.Builder(requireContext())
             .setTitle("提示")
-            .setMessage("确定清除所有选择项吗？")
+            .setMessage("是否清空该模板的所有选择项？")
             .setOnCancelListener(object : TipsDialog.OnCancelListener {
                 override fun onClick(dialog: Dialog) {
                     dialog.dismiss()

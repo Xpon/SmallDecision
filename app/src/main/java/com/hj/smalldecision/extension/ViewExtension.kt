@@ -21,7 +21,6 @@ import androidx.core.view.drawToBitmap
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import timber.log.Timber
 
 fun View.navigate(
     resId: Int,
@@ -33,7 +32,6 @@ fun View.navigate(
     } catch (e: IllegalArgumentException) {
         // Workaround with https://issuetracker.google.com/issues/128881182
     } catch (e: IllegalStateException) {
-        Timber.w("View $this does not have a NavController set")
     }
 }
 
@@ -43,7 +41,6 @@ fun View.navigateUp() {
     } catch (e: IllegalArgumentException) {
         // Workaround with https://issuetracker.google.com/issues/128881182
     } catch (e: IllegalStateException) {
-        Timber.w("View $this does not have a NavController set")
     }
 }
 

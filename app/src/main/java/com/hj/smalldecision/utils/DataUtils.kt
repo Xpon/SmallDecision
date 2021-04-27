@@ -31,11 +31,6 @@ object DataUtils {
         kinds.add(Kind(19, null, false))
         kinds.add(Kind(20, "减肥", true))
         kinds.add(Kind(21, "湘菜", true))
-        kinds.add(Kind(22, "米其林三星唐阁粤式餐厅", true))
-        kinds.add(Kind(23, null, false))
-        kinds.add(Kind(24, "重庆火锅", true))
-        kinds.add(Kind(25, "海鲜", true))
-        kinds.add(Kind(26, "素食", true))
         var content = Gson().toJson(kinds)
         return ChooseModule(1, "吃啥？", content)
     }
@@ -64,11 +59,7 @@ object DataUtils {
         kinds.add(Kind(19, null, false))
         kinds.add(Kind(20, null, false))
         kinds.add(Kind(21, null, false))
-        kinds.add(Kind(22, null, false))
-        kinds.add(Kind(23, null, false))
-        kinds.add(Kind(24, null, false))
-        kinds.add(Kind(25, null, false))
-        kinds.add(Kind(26, null, false))
+
         return kinds
     }
 

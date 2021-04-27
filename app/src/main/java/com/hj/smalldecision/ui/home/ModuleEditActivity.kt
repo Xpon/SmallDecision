@@ -13,6 +13,7 @@ import com.hj.smalldecision.databinding.ActivityModuleEditBinding
 import com.hj.smalldecision.ui.base.BaseActivity
 import com.hj.smalldecision.utils.BeehiveLayoutManager
 import com.hj.smalldecision.utils.DataUtils
+import com.hj.smalldecision.utils.IntentExtras
 import com.hj.smalldecision.utils.ViewUtils
 import com.hj.smalldecision.vo.ChooseModule
 import com.hj.smalldecision.vo.Kind
@@ -125,6 +126,7 @@ class ModuleEditActivity : BaseActivity() {
                     homeViewModel.addChooseModule(chooseModule!!)
                     withContext(Dispatchers.Main){
                         Toast.makeText(this@ModuleEditActivity,"模板保存成功",Toast.LENGTH_SHORT).show()
+                        setResult(IntentExtras.MODULE_RESULT)
                         finish()
                     }
                 }

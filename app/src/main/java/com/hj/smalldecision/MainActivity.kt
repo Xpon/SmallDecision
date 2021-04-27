@@ -6,6 +6,7 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.hj.smalldecision.animation.TossAnimation
 import com.hj.smalldecision.databinding.ActivityMainBinding
 import com.hj.smalldecision.ui.base.BaseActivity
@@ -76,5 +77,14 @@ class MainActivity : BaseActivity() {
                 dice_icon.setBackgroundResource(R.mipmap.main_bottom_dice_icon)
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.nav_host_fragment).navigateUp()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

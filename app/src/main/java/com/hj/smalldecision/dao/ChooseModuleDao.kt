@@ -12,7 +12,7 @@ interface ChooseModuleDao: BaseDao<ChooseModule> {
     @Query("SELECT * FROM choose_module WHERE id = :id")
     suspend fun getChooseModule(id: Int): ChooseModule
 
-    @Query("SELECT * FROM choose_module")
+    @Query("SELECT * FROM choose_module ORDER BY id DESC")
     suspend fun getChooseModules(): List<ChooseModule>
 
 }

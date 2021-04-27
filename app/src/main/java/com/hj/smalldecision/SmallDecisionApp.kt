@@ -1,9 +1,8 @@
 package com.hj.smalldecision
 
 import android.app.Application
-import com.facebook.stetho.Stetho
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.hj.goodweight.inject.AppInjector
+import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import timber.log.Timber
@@ -23,7 +22,7 @@ class SmallDecisionApp : Application(), HasAndroidInjector {
         instance = this
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            Stetho.initializeWithDefaults(this)
+//            Stetho.initializeWithDefaults(this)
         }
         AppInjector.init(this)
         AndroidThreeTen.init(this)

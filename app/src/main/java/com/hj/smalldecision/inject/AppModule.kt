@@ -5,10 +5,6 @@ import com.hj.goodweight.util.AppCoroutineDispatchers
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module

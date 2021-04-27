@@ -42,7 +42,7 @@ class CoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            var mHeight = (ViewUtils.getMaxHeight(requireContext())*1/2).toFloat()
+            var mHeight = (ViewUtils.getMaxHeight(requireContext())*1/2).toFloat()-50
             var mWidth = (ViewUtils.getMaxWidth(requireContext())/4).toFloat()
             settingsButton.setOnClickListener{
                 var intent = Intent(requireContext(), SettingsActivity::class.java)
