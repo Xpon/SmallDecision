@@ -184,7 +184,7 @@
                     android:layout_gravity="right|center"
                     android:textColor="@color/gray3"
                     android:textSize="15dp"
-                    android:text="公众号：micro-target"/>
+                    android:text="邮箱：741377914@qq.com"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

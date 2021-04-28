@@ -44,9 +44,9 @@ class SettingsActivity : BaseActivity(),View.OnClickListener {
             }
             R.id.our_view -> {
                 val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val mClipData = ClipData.newPlainText("已复制公众号", "micro-target")
+                val mClipData = ClipData.newPlainText("已复制邮箱", "741377914@qq.com")
                 cm.setPrimaryClip(mClipData)
-                Toast.makeText(this,"已复制公众号", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"已复制邮箱", Toast.LENGTH_SHORT).show()
             }
         }
     }

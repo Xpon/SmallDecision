@@ -31,7 +31,7 @@ class PrivacyActivity : BaseActivity() {
             val lenght = inputStream.available()
             val buffer = ByteArray(lenght)
             inputStream.read(buffer)
-            val result = String(buffer, Charset.forName("gb2312"))
+            val result = String(buffer, Charset.forName("utf-8"))
             privacy_view.text = result
         } catch (e: IOException) {
             e.printStackTrace()

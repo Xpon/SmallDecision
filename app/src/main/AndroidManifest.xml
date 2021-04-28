@@ -9,19 +9,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.settings.PrivacyActivity"></activity>
-        <activity android:name=".ui.settings.UserTreatyActivity" />
-        <activity android:name=".ui.settings.SettingsActivity" />
-        <activity android:name=".ui.dice.AdventureActivity" />
+        <activity android:name=".ui.settings.PrivacyActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.settings.UserTreatyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.settings.SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.dice.AdventureActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.ModuleEditActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
