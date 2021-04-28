@@ -7,9 +7,13 @@ import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.hj.goodweight.extension.defaultSharedPreferences
 import com.hj.smalldecision.animation.TossAnimation
 import com.hj.smalldecision.databinding.ActivityMainBinding
 import com.hj.smalldecision.ui.base.BaseActivity
+import com.hj.smalldecision.utils.IntentExtras
+import com.hj.smalldecision.weight.PrivacyDialog
+import com.hj.smalldecision.weight.TipsDialog
 import com.hj.smalldecision.weight.TossImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -30,6 +34,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showPrivacyDialog()
         binding.apply {
             homeButton.setOnClickListener{
                 if(currentClick == HOME){
@@ -76,6 +81,18 @@ class MainActivity : BaseActivity() {
                 coin_icon.setBackgroundResource(R.mipmap.main_bottom_coin_dark_icon)
                 dice_icon.setBackgroundResource(R.mipmap.main_bottom_dice_icon)
             }
+        }
+    }
+
+    private fun showPrivacyDialog(){
+        var showPrivacyDialog = defaultSharedPreferences.getInt(IntentExtras.FIRST_SHOW_PRIVACY_DIALOG,0)==0
+        if(showPrivacyDialog){
+
+            var privacyDialog = PrivacyDialog.Builder(this)
+                .create()
+            privacyDialog.setCancelable(false)
+            privacyDialog.show()
+            defaultSharedPreferences.edit().putInt(IntentExtras.FIRST_SHOW_PRIVACY_DIALOG,1).commit()
         }
     }
 
