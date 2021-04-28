@@ -69,9 +69,6 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var bottomSheetDialog = CustomBottomSheetDialog(requireActivity(), R.style.MyBottomSheetDialog_1)
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            setWhiteNavigationBar(bottomSheetDialog)
-        }
         return bottomSheetDialog
     }
     override fun onCreateView(
@@ -141,26 +138,6 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
         bottomSheetBehavior.peekHeight = (height*0.8).toInt()
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun setWhiteNavigationBar(dialog: Dialog) {
-        val window = dialog.window
-        if (window != null) {
-            val metrics = DisplayMetrics()
-            window.windowManager.defaultDisplay.getMetrics(metrics)
-            val dimDrawable = GradientDrawable()
-            val navigationBarDrawable = GradientDrawable()
-            navigationBarDrawable.shape = GradientDrawable.RECTANGLE
-            navigationBarDrawable.setColor(Color.WHITE)
-            val layers =
-                arrayOf<Drawable>(
-                    dimDrawable, navigationBarDrawable
-                )
-            val windowBackground = LayerDrawable(layers)
-            windowBackground.setLayerInsetTop(1, metrics.heightPixels)
-            window.setBackgroundDrawable(windowBackground)
-        }
     }
 
     interface OnItemClickListener{

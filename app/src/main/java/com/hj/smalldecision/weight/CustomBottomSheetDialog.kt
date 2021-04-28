@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -20,6 +21,7 @@ class CustomBottomSheetDialog(private val activity: Activity,theme: Int): Bottom
             }else{
                 dialogHeight
             })
+        window!!.setGravity(Gravity.BOTTOM)
     }
 
     private fun getScreenHeight(activity: Activity): Int{
