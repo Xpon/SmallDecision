@@ -108,6 +108,7 @@ class DiceFragment : Fragment() {
         for(imageView in diceViews!!){
             imageView.setBackgroundResource(R.mipmap.box_1)
         }
+        handler.removeCallbacks(runnable)
     }
 
     private var runnable = object: Runnable {
