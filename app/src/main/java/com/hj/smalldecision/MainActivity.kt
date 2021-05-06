@@ -1,5 +1,6 @@
 package com.hj.smalldecision
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
@@ -87,12 +88,22 @@ class MainActivity : BaseActivity() {
     private fun showPrivacyDialog(){
         var showPrivacyDialog = defaultSharedPreferences.getInt(IntentExtras.FIRST_SHOW_PRIVACY_DIALOG,0)==0
         if(showPrivacyDialog){
-
             var privacyDialog = PrivacyDialog.Builder(this)
+                .setOnCancelListener(object: PrivacyDialog.OnCancelListener{
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                        finish()
+                    }
+                })
+                .setOnPositiveListener(object: PrivacyDialog.OnPositiveListener{
+                    override fun onClick(dialog: Dialog) {
+                        defaultSharedPreferences.edit().putInt(IntentExtras.FIRST_SHOW_PRIVACY_DIALOG,1).commit()
+                        dialog.dismiss()
+                    }
+                })
                 .create()
             privacyDialog.setCancelable(false)
             privacyDialog.show()
-            defaultSharedPreferences.edit().putInt(IntentExtras.FIRST_SHOW_PRIVACY_DIALOG,1).commit()
         }
     }
 

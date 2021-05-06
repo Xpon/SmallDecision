@@ -24,7 +24,18 @@ class PrivacyDialog(private val mContext: Context) : Dialog(mContext) {
     class Builder(private val mContext: Context){
 
         lateinit var binding: PrivacyDialogLayoutBinding
+        private var onPositiveListener: OnPositiveListener? = null
+        private var onCancelListener: OnCancelListener? = null
 
+        fun setOnPositiveListener(onPositiveListener: OnPositiveListener): Builder {
+            this.onPositiveListener = onPositiveListener
+            return this
+        }
+
+        fun setOnCancelListener(onCancelListener: OnCancelListener): Builder {
+            this.onCancelListener = onCancelListener
+            return this
+        }
 
         fun create(): PrivacyDialog{
             var privacyDialog = PrivacyDialog(mContext)
@@ -57,7 +68,10 @@ class PrivacyDialog(private val mContext: Context) : Dialog(mContext) {
             binding.messageView.highlightColor = Color.TRANSPARENT
             binding.messageView.text = ssb
             binding.confirmButton.setOnClickListener{
-                privacyDialog.dismiss()
+                onPositiveListener!!.onClick(privacyDialog)
+            }
+            binding.cancelButton.setOnClickListener{
+                onCancelListener!!.onClick(privacyDialog)
             }
             return privacyDialog
         }
