@@ -23,4 +23,21 @@
     <color name="button_dark_color">#e74c3c</color>
     <color name="button_color_1">#884863c1</color>
     <color name="button_color_2">#883fc380</color>
+
+    <color name="choose_game_default_color_1">#e74c3c</color>
+    <color name="choose_game_default_color_2">#e26a6a</color>
+    <color name="choose_game_default_color_3">#be90d4</color>
+    <color name="choose_game_default_color_4">#19b5fe</color>
+    <color name="choose_game_default_color_5">#4ecdc4</color>
+    <color name="choose_game_default_color_6">#87d37c</color>
+    <color name="choose_game_default_color_7">#0000ff</color>
+    <color name="choose_game_default_color_8">#3fc380</color>
+    <color name="choose_game_default_color_9">#ee00ff</color>
+    <color name="choose_game_default_color_10">#f5ab35</color>
+    <color name="choose_game_default_color_11">#018786</color>
+    <color name="choose_game_default_color_12">#949494</color>
+    <color name="choose_game_default_color_13">#000000</color>
+    <color name="choose_game_default_color_14">#ffc380</color>
+    <color name="choose_game_default_color_15">#01ff86</color>
+
 </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_eats">
+        <item>火锅</item>
+        <item>水果</item>
+        <item>面条</item>
+        <item>日本料理</item>
+        <item>鱼</item>
+        <item>牛奶</item>
+    </string-array>
+
+    <string-array name="turntable_colors">
+        <item>#1E59CD</item>
+        <item>#7C36D4</item>
+        <item>#EB6E3E</item>
+        <item>#82AF48</item>
+        <item>#3F90BB</item>
+        <item>#D63338</item>
+    </string-array>
+</resources>

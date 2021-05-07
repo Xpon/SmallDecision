@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/turn_table_fragment"
+        android:name="com.hj.smalldecision.ui.home.TurnTableFragment"
+        android:label="table"
+        tools:layout="@layout/fragment_turn_table" />
+
+    <fragment
         android:id="@+id/coin_fragment"
         android:name="com.hj.smalldecision.ui.coin.CoinFragment"
         android:label="second"

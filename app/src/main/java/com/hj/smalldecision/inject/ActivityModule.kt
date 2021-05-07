@@ -5,6 +5,7 @@ import com.hj.smalldecision.ui.settings.SettingsActivity
 import com.hj.smalldecision.ui.home.HomeFragment
 import com.hj.smalldecision.ui.home.ModuleDialogFragment
 import com.hj.smalldecision.ui.home.ModuleEditActivity
+import com.hj.smalldecision.ui.home.TurnTableFragment
 import com.hj.smalldecision.ui.settings.PrivacyActivity
 import com.hj.smalldecision.ui.settings.UserTreatyActivity
 import dagger.Module
@@ -18,6 +19,9 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeHomeFragment(): HomeFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeTurnTableFragment(): TurnTableFragment
 
     @ContributesAndroidInjector
     internal abstract fun contributeModuleEditActivity(): ModuleEditActivity

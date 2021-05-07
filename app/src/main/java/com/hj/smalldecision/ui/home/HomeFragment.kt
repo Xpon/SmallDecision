@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.google.gson.Gson
 import com.hj.goodweight.extension.defaultSharedPreferences
 import com.hj.smalldecision.R
@@ -77,6 +78,9 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             initRecyclerViewSize()
+            changeButton.setOnClickListener{
+                Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.turn_table_fragment)
+            }
             clearButton.setOnClickListener{
                 showClearDataDialog()
             }
@@ -230,7 +234,6 @@ class HomeFragment : BaseFragment() {
 
     private var runnable = object : Runnable {
         override fun run() {
-            Log.e("333333","------")
             if (TextUtils.isEmpty(kinds[showPosition].name)) {
                 if (showPosition >= kinds.size - 1) {
                     loopCount++

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.TurnTableFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -45,20 +45,31 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+
+        <FrameLayout
+            android:id="@+id/turntable_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"></androidx.recyclerview.widget.RecyclerView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="10dp"
-            android:textColor="@color/gray1"
-            android:text="长按六边形区域可重新编辑选择项"/>
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/random_game_bg"
+            android:padding="10dp">
 
+            <com.hj.smalldecision.weight.TurntableView
+                android:id="@+id/turntable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/go_iv"
+                android:layout_width="66dp"
+                android:layout_height="115dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/choose_game_node_image" />
+        </FrameLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,5 +111,4 @@
             android:textSize="12dp"
             android:background="@drawable/click_solid_bg_2"/>
     </LinearLayout>
-
 </LinearLayout>
