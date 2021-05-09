@@ -20,6 +20,8 @@
             android:paddingBottom="15dp"
             android:singleLine="true"
             android:layout_marginLeft="10dp"
+            android:hint="输入选项"
+            android:textColorHint="@color/gray1"
             android:textSize="18dp"
             android:textColor="@color/black"
             android:background="@null"/>

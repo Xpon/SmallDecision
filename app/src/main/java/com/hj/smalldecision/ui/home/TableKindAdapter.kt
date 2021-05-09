@@ -40,5 +40,8 @@ class TableKindAdapter: ListAdapter<Kind, TableKindAdapter.ViewHolder>(Kind.DIFF
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(currentList[position])
+        if(position==currentList.size-1){
+            holder.binding.titleView.requestFocus()
+        }
     }
 }
