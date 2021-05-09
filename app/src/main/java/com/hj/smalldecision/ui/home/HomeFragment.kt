@@ -63,7 +63,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        chooseModuleId = defaultSharedPreferences.getInt(CHOOSE_MODULE_ID, DEFAULT_CHOOSE_MODULE_ID)
     }
 
     override fun onCreateView(
@@ -76,6 +75,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        chooseModuleId = defaultSharedPreferences.getInt(CHOOSE_MODULE_ID, DEFAULT_CHOOSE_MODULE_ID)
         binding.apply {
             initRecyclerViewSize()
             changeButton.setOnClickListener{
@@ -228,7 +228,6 @@ class HomeFragment : BaseFragment() {
         showPosition = 0
         time = 200L
         loopCount = 0
-        Log.e("333333","choosePosition="+choosePosition+"...showPosition="+showPosition)
         handler.postDelayed(runnable, time)
     }
 

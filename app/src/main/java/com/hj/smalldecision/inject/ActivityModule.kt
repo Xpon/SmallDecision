@@ -5,6 +5,7 @@ import com.hj.smalldecision.ui.settings.SettingsActivity
 import com.hj.smalldecision.ui.home.HomeFragment
 import com.hj.smalldecision.ui.home.ModuleDialogFragment
 import com.hj.smalldecision.ui.home.ModuleEditActivity
+import com.hj.smalldecision.ui.home.TableModuleEditActivity
 import com.hj.smalldecision.ui.home.TurnTableFragment
 import com.hj.smalldecision.ui.settings.PrivacyActivity
 import com.hj.smalldecision.ui.settings.UserTreatyActivity
@@ -25,6 +26,9 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeModuleEditActivity(): ModuleEditActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeTableModuleEditActivity(): TableModuleEditActivity
 
     @ContributesAndroidInjector
     internal abstract fun contributeSettingsActivity(): SettingsActivity
