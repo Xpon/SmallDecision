@@ -1,7 +1,9 @@
 package com.hj.smalldecision.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import com.hj.goodweight.extension.defaultSharedPreferences
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.FragmentTurnTableBinding
 import com.hj.smalldecision.ui.base.BaseFragment
+import com.hj.smalldecision.ui.settings.SettingsActivity
 import com.hj.smalldecision.utils.ColorUtils
 import com.hj.smalldecision.utils.DataUtils
 import com.hj.smalldecision.vo.ChooseModule
@@ -55,17 +58,26 @@ class TurnTableFragment : BaseFragment() {
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                     .navigate(R.id.home_fragment)
             }
-
+            settingsButton.setOnClickListener{
+                var intent = Intent(requireContext(), SettingsActivity::class.java)
+                startActivity(intent)
+            }
             goIv.setOnClickListener {
                 turntable.startRotate(object : TurntableView.Callback {
                     override fun onStart() {
                         goIv.isClickable = false
+                    }
+                    override fun onUpdate(name: String) {
+                        moduleTitleView.text = name
                     }
                     override fun onEnd(pos: Int, name: String) {
                         goIv.isClickable = true
                         moduleTitleView.text = name
                     }
                 })
+            }
+            resetButton.setOnClickListener {
+                moduleTitleView.text = chooseModule!!.title
             }
             moduleButton.setOnClickListener{
                 lifecycleScope.launch(Dispatchers.IO){
@@ -85,11 +97,20 @@ class TurnTableFragment : BaseFragment() {
                                 defaultSharedPreferences.edit().putInt(HomeFragment.CHOOSE_MODULE_ID,chooseModuleId).commit()
                             }
                         })
+                        moduleDialogFragment.setOnDataUpdateListener(object: ModuleDialogFragment.OnDataUpdateListener{
+                            override fun onUpdate(module: ChooseModule) {
+                                if(chooseModule!!.id == module.id){
+                                    moduleTitleView.text = chooseModule!!.title
+                                    chooseModule = module
+                                    var texts = getTableTexts()
+                                    showTurntable(texts)
+                                }
+                            }
+                        })
                         moduleDialogFragment.show(childFragmentManager,"")
                     }
                 }
             }
-
         }
         lifecycleScope.launch(Dispatchers.IO) {
             chooseModule = homeViewModel.getChooseModule(chooseModuleId)

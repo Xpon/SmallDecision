@@ -89,6 +89,7 @@ class TurntableView(context: Context, attrs: AttributeSet) : View(context, attrs
     }
 
     private fun scrollToPos(pos: Int) {
+        var changePosition = 0
         val endOffset = Random.nextDouble(0.0, 1.0)
         var endAngle: Float = (270 - itemOffset * (pos + endOffset)).toFloat()
         endAngle += if (endAngle < currentAngle) {
@@ -109,6 +110,11 @@ class TurntableView(context: Context, attrs: AttributeSet) : View(context, attrs
                     lastValue = value
                 }
                 updateRotation(value)
+                if(changePosition>=count-1){
+                    changePosition = 0
+                }
+                changePosition++
+                callback?.onUpdate(names[changePosition])
             }
             doOnStart {
                 rotating = true
@@ -168,6 +174,8 @@ class TurntableView(context: Context, attrs: AttributeSet) : View(context, attrs
 
     interface Callback {
         fun onStart()
+
+        fun onUpdate(name: String)
 
         fun onEnd(pos: Int, name: String)
     }

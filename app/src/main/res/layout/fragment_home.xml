@@ -90,12 +90,12 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/clear_button"
+            android:id="@+id/reset_button"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="清空"
+            android:text="重置"
             android:textColor="@color/white"
             android:textSize="12dp"
             android:background="@drawable/click_solid_bg_2"/>

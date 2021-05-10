@@ -44,7 +44,6 @@ class HomeFragment : BaseFragment() {
     private var kindAdapter: KindAdapter? = null
     private var kinds = ArrayList<Kind>()
     private var chooseModule: ChooseModule? = null
-    private var buttonAction = STOP
     private var chooseModuleId = DEFAULT_CHOOSE_MODULE_ID
     private var handler = Handler()
     private var choosePosition = 0
@@ -53,9 +52,6 @@ class HomeFragment : BaseFragment() {
     private var time = 200L
 
     companion object{
-        const val PLAY = 1
-        const val RESET = 2
-        const val STOP = 3
         const val DECISION_DATA = "decision_data"
         const val CHOOSE_MODULE_ID = "choose_module_id_key"
         const val DEFAULT_CHOOSE_MODULE_ID = 1
@@ -81,12 +77,8 @@ class HomeFragment : BaseFragment() {
             changeButton.setOnClickListener{
                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.turn_table_fragment)
             }
-            clearButton.setOnClickListener{
-                showClearDataDialog()
-            }
             settingsButton.setOnClickListener{
-                var intent = Intent(requireContext(),
-                    SettingsActivity::class.java)
+                var intent = Intent(requireContext(), SettingsActivity::class.java)
                 startActivity(intent)
             }
             kindAdapter = KindAdapter()
@@ -98,12 +90,10 @@ class HomeFragment : BaseFragment() {
             kindAdapter!!.setOnItemClickListener(object : KindAdapter.OnItemClickListener {
                 override fun onclick(position: Int) {
                     if (kinds[position].name != null && kinds[position].isReal) {
-                        if (buttonAction == PLAY) {
+                        if (!playButton.isClickable) {
                             Toast.makeText(requireContext(), "正在选择中，请在停止后修改内容", Toast.LENGTH_SHORT)
                                 .show()
                             return
-                        } else if (buttonAction == RESET || buttonAction == STOP) {
-                            showPlayButtonAction(RESET)
                         }
                         var editItemDialogFragment = EditItemDialogFragment(kinds[position].name!!)
                         editItemDialogFragment.setOnCommitListener(object :
@@ -134,10 +124,12 @@ class HomeFragment : BaseFragment() {
                     Toast.makeText(requireContext(), "请至少添加三个选择项", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                if(buttonAction==STOP){
-                    buttonAction = PLAY
-                }
-                showPlayButtonAction(buttonAction)
+                play()
+                binding.playButton.isClickable = false
+            }
+            resetButton.setOnClickListener {
+                binding.playButton.isClickable = true
+                reset()
             }
             moduleButton.setOnClickListener{
                 lifecycleScope.launch(Dispatchers.IO){
@@ -148,13 +140,24 @@ class HomeFragment : BaseFragment() {
                         moduleDialogFragment.setData(chooseModules)
                         moduleDialogFragment.setOnItemClickListener(object: ModuleDialogFragment.OnItemClickListener{
                             override fun onClick(module: ChooseModule) {
-                                showPlayButtonAction(RESET)
+                                reset()
                                 chooseModule = module
                                 moduleTitleView.text = module.title
                                 kinds = DataUtils.getKinds(module.content)
                                 chooseModuleId = module.id
                                 kindAdapter!!.submitList(kinds)
                                 defaultSharedPreferences.edit().putInt(CHOOSE_MODULE_ID,chooseModuleId).commit()
+                            }
+                        })
+                        moduleDialogFragment.setOnDataUpdateListener(object: ModuleDialogFragment.OnDataUpdateListener{
+                            override fun onUpdate(module: ChooseModule) {
+                                if(chooseModule!!.id == module.id){
+                                    chooseModule = module
+                                    moduleTitleView.text = module.title
+                                    kinds = DataUtils.getKinds(module.content)
+                                    chooseModuleId = module.id
+                                    kindAdapter!!.submitList(kinds)
+                                }
                             }
                         })
                         moduleDialogFragment.show(childFragmentManager,"")
@@ -171,24 +174,6 @@ class HomeFragment : BaseFragment() {
                     kindAdapter!!.submitList(kinds)
                 }
             }
-        }
-    }
-
-
-    private fun showPlayButtonAction(action: Int){
-        if(action==PLAY){
-            binding.playButton.text = "开始"
-            // binding.playButton.setBackgroundResource(R.drawable.gray_stroke_bg)
-            play()
-            binding.playButton.isClickable = false
-        }else if(action==RESET){
-            reset()
-            binding.playButton.isClickable = true
-        }else if(action== STOP){
-            // binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
-            binding.playButton.text = "重置"
-            buttonAction = RESET
-            binding.playButton.isClickable = true
         }
     }
 
@@ -218,12 +203,12 @@ class HomeFragment : BaseFragment() {
         loopCount = 0
         // binding.playButton.setBackgroundResource(R.drawable.main_color_stroke_bg)
         binding.playButton.text = "开始"
-        buttonAction = STOP
         kindAdapter!!.setShowPosition(-1)
         module_title_view.text = chooseModule!!.title
     }
 
     private fun play() {
+        play_button.isClickable = false
         choosePosition = getRandomChoosePosition()
         showPosition = 0
         time = 200L
@@ -244,7 +229,7 @@ class HomeFragment : BaseFragment() {
                 binding.moduleTitleView.text = kinds[showPosition].name
                 kindAdapter!!.setShowPosition(showPosition)
                 if (loopCount >= 2 && showPosition == choosePosition) {
-                    showPlayButtonAction(STOP)
+                    play_button.isClickable = true
                     return
                 }
                 if (showPosition >= kinds.size - 1) {
@@ -275,7 +260,6 @@ class HomeFragment : BaseFragment() {
             })
             .setOnPositiveListener(object: TipsDialog.OnPositiveListener {
                 override fun onClick(dialog: Dialog) {
-                    showPlayButtonAction(RESET)
                     clearData()
                     kindAdapter!!.submitList(kinds)
                     lifecycleScope.launch(Dispatchers.IO){
@@ -283,7 +267,6 @@ class HomeFragment : BaseFragment() {
                         chooseModule!!.content = content
                         homeViewModel.addChooseModule(chooseModule!!)
                         withContext(Dispatchers.Main){
-                            showPlayButtonAction(RESET)
                             dialog.dismiss()
                         }
                     }

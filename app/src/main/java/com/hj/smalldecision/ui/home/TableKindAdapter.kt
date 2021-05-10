@@ -13,13 +13,24 @@ import com.hj.smalldecision.vo.Kind
 
 class TableKindAdapter: ListAdapter<Kind, TableKindAdapter.ViewHolder>(Kind.DIFF_CALLBACK){
 
+    private var onDeleteClickListener: OnDeleteClickListener? = null
+
     fun getData(): List<Kind>{
         return currentList
+    }
+
+    fun setOnDeleteClickListener(onDeleteClickListener: OnDeleteClickListener){
+        this.onDeleteClickListener = onDeleteClickListener
     }
 
     class ViewHolder(var binding: AdapterTableKindLayoutBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(kind: Kind){
             binding.apply {
+                if(kind.isReal){
+                    rootView.visibility = View.VISIBLE
+                }else{
+                    rootView.visibility = View.GONE
+                }
                 titleView.setText(kind.name)
                 titleView.addTextChangedListener(object: TextWatcher{
                     override fun afterTextChanged(p0: Editable?) {
@@ -30,6 +41,9 @@ class TableKindAdapter: ListAdapter<Kind, TableKindAdapter.ViewHolder>(Kind.DIFF
                         kind.name = p0.toString()
                     }
                 })
+                deleteButton.setOnClickListener{
+
+                }
             }
         }
     }
@@ -39,9 +53,17 @@ class TableKindAdapter: ListAdapter<Kind, TableKindAdapter.ViewHolder>(Kind.DIFF
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        var kind = currentList[position]
+        holder.bind(kind)
         if(position==currentList.size-1){
             holder.binding.titleView.requestFocus()
         }
+        holder.binding.deleteButton.setOnClickListener {
+            onDeleteClickListener!!.onClick(kind)
+        }
+    }
+
+    interface OnDeleteClickListener{
+        fun onClick(kind: Kind)
     }
 }

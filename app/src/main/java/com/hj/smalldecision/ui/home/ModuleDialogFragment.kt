@@ -34,6 +34,7 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
     private lateinit var binding: FragmentModuleDialogBinding
     private var chooseModules: List<ChooseModule>? = null
     private var onItemClickListener: OnItemClickListener? = null
+    private var onDataUpdateListener: OnDataUpdateListener? = null
     private var moduleAdapter: ModuleAdapter? = null
     private var isTurnTable = false
     companion object{
@@ -52,6 +53,11 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
         this.onItemClickListener = onItemClickListener
     }
+
+    fun setOnDataUpdateListener(onDataUpdateListener: OnDataUpdateListener){
+        this.onDataUpdateListener = onDataUpdateListener
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -103,9 +109,11 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
         if(requestCode==IntentExtras.MODULE_REQUEST&&resultCode==IntentExtras.MODULE_RESULT){
+            var chooseModule = intent!!.getSerializableExtra(IntentExtras.MODULE_KEY) as ChooseModule
+            onDataUpdateListener!!.onUpdate(chooseModule)
             lifecycleScope.launch(Dispatchers.IO){
                 var chooseModules = homeViewModel.getChooseModules()
                 withContext(Dispatchers.Main){
@@ -136,5 +144,9 @@ class ModuleDialogFragment : BottomSheetDialogFragment(), Injectable {
 
     interface OnItemClickListener{
         fun onClick(module: ChooseModule)
+    }
+
+    interface OnDataUpdateListener{
+        fun onUpdate(module: ChooseModule)
     }
 }

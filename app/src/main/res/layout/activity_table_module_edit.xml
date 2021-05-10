@@ -88,8 +88,9 @@
                     android:singleLine="true"
                     android:layout_marginLeft="10dp"
                     android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:text="添加选项"/>
+                    android:textColor="@color/choose_game_default_color_4"
+                    android:textStyle="bold"
+                    android:text="+添加选项"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

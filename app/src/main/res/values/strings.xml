@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">小决定吖</string>
+    <string name="app_name">日常小决定</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sound">音效: </string>
     <string name="shack">手搖骰效果:</string>

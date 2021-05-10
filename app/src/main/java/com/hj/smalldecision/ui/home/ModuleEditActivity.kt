@@ -1,6 +1,7 @@
 package com.hj.smalldecision.ui.home
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
@@ -126,7 +127,9 @@ class ModuleEditActivity : BaseActivity() {
                     homeViewModel.addChooseModule(chooseModule!!)
                     withContext(Dispatchers.Main){
                         Toast.makeText(this@ModuleEditActivity,"模板保存成功",Toast.LENGTH_SHORT).show()
-                        setResult(IntentExtras.MODULE_RESULT)
+                        var intent = Intent()
+                        intent.putExtra(IntentExtras.MODULE_KEY,chooseModule)
+                        setResult(IntentExtras.MODULE_RESULT,intent)
                         finish()
                     }
                 }
