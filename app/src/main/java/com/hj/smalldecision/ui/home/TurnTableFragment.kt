@@ -55,6 +55,7 @@ class TurnTableFragment : BaseFragment() {
         )
         binding.apply {
             changeButton.setOnClickListener {
+                defaultSharedPreferences.edit().putBoolean("home_model",false).commit()
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                     .navigate(R.id.home_fragment)
             }
@@ -138,8 +139,12 @@ class TurnTableFragment : BaseFragment() {
 
     private fun showTurntable(texts: Array<String?>) {
         var colors = arrayOfNulls<Int>(texts!!.size)
-        for (i in colors.indices) {
-            colors[i] = ColorUtils.getDefaultChooseColor(requireContext())[i]
+        for (i in texts.indices) {
+            if(i>ColorUtils.getDefaultChooseColor(requireContext()).size-1){
+                colors[i] = ColorUtils.getDefaultChooseColor(requireContext())[i-(ColorUtils.getDefaultChooseColor(requireContext()).size-1)]
+            }else{
+                colors[i] = ColorUtils.getDefaultChooseColor(requireContext())[i]
+            }
         }
         turntable.resetData(colors, texts)
     }

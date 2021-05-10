@@ -110,11 +110,6 @@ class TurntableView(context: Context, attrs: AttributeSet) : View(context, attrs
                     lastValue = value
                 }
                 updateRotation(value)
-                if(changePosition>=count-1){
-                    changePosition = 0
-                }
-                changePosition++
-                callback?.onUpdate(names[changePosition])
             }
             doOnStart {
                 rotating = true
@@ -148,9 +143,11 @@ class TurntableView(context: Context, attrs: AttributeSet) : View(context, attrs
     private fun drawText(canvas: Canvas, w: Float, h: Float) {
         paint.color = Color.WHITE
         paint.textAlign = Paint.Align.CENTER
-        paint.textSize = 45f
+        paint.textSize = 40f
         if(count>8){
-            paint.textSize = 40f
+            paint.textSize = 35f
+        }else if(count>10){
+            paint.textSize = 30f
         }
         paint.letterSpacing = .4f
         rect = RectF(0f, 0f, w, h)
@@ -160,12 +157,24 @@ class TurntableView(context: Context, attrs: AttributeSet) : View(context, attrs
         names.forEach {
             path = Path()
             path!!.addArc(rect!!, angle, itemOffset)
-            if(it.length>4){
+            if(it.length in 4..7){
                 var temp1 = it.substring(0,4)
                 canvas.drawTextOnPath(temp1, path!!, 0f,  120f, paint)
                 var temp2 = it.substring(4,it.length)
                 canvas.drawTextOnPath(temp2, path!!, 0f, textHeight + 122, paint)
-            }else {
+            }else if(it.length>=8){
+                var temp1 = it.substring(0,4)
+                canvas.drawTextOnPath(temp1, path!!, 0f,  120f, paint)
+                var temp2 = it.substring(4,8)
+                canvas.drawTextOnPath(temp2, path!!, 0f, textHeight + 122, paint)
+                var temp3 = ""
+                if(it.length>=12){
+                    temp3 = it.substring(8,12)
+                }else{
+                    temp3 = it.substring(8,it.length)
+                }
+                canvas.drawTextOnPath(temp3, path!!, 0f, textHeight*2 + 124, paint)
+            }else if(it.length<=4){
                 canvas.drawTextOnPath(it, path!!, 0f, 120f, paint)
             }
             angle += itemOffset

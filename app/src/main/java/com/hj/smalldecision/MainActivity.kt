@@ -43,7 +43,12 @@ class MainActivity : BaseActivity() {
                 }
                 currentClick = HOME
                 updateBottomIcon(HOME)
-                Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.home_fragment)
+                var isTurnTable = defaultSharedPreferences.getBoolean("home_model",false)
+                if(isTurnTable){
+                    Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.turn_table_fragment)
+                }else{
+                    Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.home_fragment)
+                }
             }
             coinButton.setOnClickListener{
                 if(currentClick == COIN){
@@ -60,6 +65,12 @@ class MainActivity : BaseActivity() {
                 currentClick = DICE
                 updateBottomIcon(DICE)
                 Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.adventure_fragment)
+            }
+            var isTurnTable = defaultSharedPreferences.getBoolean("home_model",false)
+            if(isTurnTable){
+                Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.turn_table_fragment)
+            }else{
+                Navigation.findNavController(this@MainActivity,R.id.nav_host_fragment).navigate(R.id.home_fragment)
             }
             updateBottomIcon(HOME)
         }

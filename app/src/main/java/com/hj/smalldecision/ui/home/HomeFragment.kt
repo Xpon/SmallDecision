@@ -75,6 +75,7 @@ class HomeFragment : BaseFragment() {
         binding.apply {
             initRecyclerViewSize()
             changeButton.setOnClickListener{
+                defaultSharedPreferences.edit().putBoolean("home_model",true).commit()
                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.turn_table_fragment)
             }
             settingsButton.setOnClickListener{

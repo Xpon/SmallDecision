@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hj.smalldecision.R
 import com.hj.smalldecision.databinding.ActivityTableModuleEditBinding
 import com.hj.smalldecision.ui.base.BaseActivity
+import com.hj.smalldecision.utils.ColorUtils
 import com.hj.smalldecision.utils.DataUtils
 import com.hj.smalldecision.utils.IntentExtras
 import com.hj.smalldecision.vo.ChooseModule
@@ -49,6 +50,9 @@ class TableModuleEditActivity : BaseActivity() {
             tableKindAdapter = TableKindAdapter()
             recyclerView.layoutManager = LinearLayoutManager(this@TableModuleEditActivity)
             recyclerView.adapter = tableKindAdapter
+            backView.setOnClickListener{
+                finish()
+            }
             tableKindAdapter!!.setOnDeleteClickListener(object: TableKindAdapter.OnDeleteClickListener{
                 override fun onClick(kind: Kind) {
                     var temps = ArrayList<Kind>()
@@ -65,6 +69,9 @@ class TableModuleEditActivity : BaseActivity() {
             addButton.setOnClickListener {
                 var temps = ArrayList<Kind>()
                 temps.addAll(tableKindAdapter!!.getData())
+                if(temps.size>ColorUtils.getDefaultChooseColor(this@TableModuleEditActivity).size){
+                    return@setOnClickListener
+                }
                 temps.add(Kind(-1, "", true))
                 tableKindAdapter!!.submitList(temps)
             }
